@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { FiltersDto, LaunchesResponseDto } from '../../dto';
 import { GetAllService } from '../../application/services/get-all';
+import { OptionalParseIntPipe } from 'src/modules/shared/pipes';
 
 @Controller()
 export class GetAllController {
@@ -16,8 +17,8 @@ export class GetAllController {
   @Get('launches')
   getAll(
     @Query('search') search: string,
-    @Query('limit') limit: number,
-    @Query('page') page: number,
+    @Query('limit', OptionalParseIntPipe) limit: number,
+    @Query('page', OptionalParseIntPipe) page: number,
   ): Promise<LaunchesResponseDto> {
     const filtersDto: FiltersDto = {
       search,
