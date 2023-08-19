@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GetAllService } from './get-all.service';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
+import { FiltersDto } from 'src/modules/launches/dto';
 
 describe('GetAllService', () => {
   let sut: GetAllService;
@@ -12,7 +13,7 @@ describe('GetAllService', () => {
     const LaunchesRepositoryProvider = {
       provide: 'LAUNCHES_REPOSITORY',
       useValue: {
-        getAll: jest.fn().mockResolvedValue(null),
+        getAll: jest.fn().mockResolvedValue({}),
       },
     };
 
@@ -27,5 +28,16 @@ describe('GetAllService', () => {
   it('should be defined', () => {
     expect(sut).toBeDefined();
     expect(launchesRepository).toBeDefined();
+  });
+
+  describe('execute()', () => {
+    const search = 'tesla';
+    const limit = 4;
+
+    it('should be called launchesRepository.getAll with correct values', async () => {
+      await sut.execute(search, limit);
+      expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.getAll).toHaveBeenCalledWith(search, limit);
+    });
   });
 });
