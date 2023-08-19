@@ -24,7 +24,6 @@ export class LaunchDto {
   cores: Core[];
   auto_update: boolean;
   tbd: boolean;
-  launch_library_id: string | null;
   id: string;
 }
 
