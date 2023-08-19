@@ -1,40 +1,42 @@
-// launch.schema.ts
-
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 
 @Schema()
 export class Launch extends Document {
-  @Prop()
-  fairings: {
-    reused: boolean;
-    recovery_attempt: boolean;
-    recovered: boolean;
-    ships: string[];
-  };
+  @Prop({
+    type: {
+      reused: Boolean,
+      recovery_attempt: Boolean,
+      recovered: Boolean,
+      ships: [String],
+    },
+  })
+  fairings: Record<string, any>;
 
-  @Prop()
-  links: {
-    patch: {
-      small: string;
-      large: string;
-    };
-    reddit: {
-      campaign: string;
-      launch: string;
-      media: string;
-      recovery: string;
-    };
-    flickr: {
-      small: string[];
-      original: string[];
-    };
-    presskit: string;
-    webcast: string;
-    youtube_id: string;
-    article: string;
-    wikipedia: string;
-  };
+  @Prop({
+    type: {
+      patch: {
+        small: String,
+        large: String,
+      },
+      reddit: {
+        campaign: String,
+        launch: String,
+        media: String,
+        recovery: String,
+      },
+      flickr: {
+        small: [String],
+        original: [String],
+      },
+      presskit: String,
+      webcast: String,
+      youtube_id: String,
+      article: String,
+      wikipedia: String,
+    },
+  })
+  links: Record<string, any>;
 
   @Prop()
   static_fire_date_utc: Date;
@@ -54,12 +56,14 @@ export class Launch extends Document {
   @Prop()
   success: boolean;
 
-  @Prop()
-  failures: {
-    time: number;
-    altitude: number;
-    reason: string;
-  }[];
+  @Prop([
+    {
+      time: Number,
+      altitude: Number,
+      reason: String,
+    },
+  ])
+  failures: Record<string, any>[];
 
   @Prop()
   details: string;
@@ -100,18 +104,20 @@ export class Launch extends Document {
   @Prop()
   upcoming: boolean;
 
-  @Prop()
-  cores: {
-    core: string;
-    flight: number;
-    gridfins: boolean;
-    legs: boolean;
-    reused: boolean;
-    landing_attempt: boolean;
-    landing_success: boolean;
-    landing_type: string;
-    landpad: string;
-  }[];
+  @Prop([
+    {
+      core: String,
+      flight: Number,
+      gridfins: Boolean,
+      legs: Boolean,
+      reused: Boolean,
+      landing_attempt: Boolean,
+      landing_success: Boolean,
+      landing_type: String,
+      landpad: String,
+    },
+  ])
+  cores: Record<string, any>[];
 
   @Prop()
   auto_update: boolean;
