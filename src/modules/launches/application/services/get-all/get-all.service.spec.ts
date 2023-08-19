@@ -39,5 +39,17 @@ describe('GetAllService', () => {
       expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
       expect(launchesRepository.getAll).toHaveBeenCalledWith(search, limit);
     });
+
+    it('should be called launchesRepository.getAll with correct values when not filters', async () => {
+      const notSearch = '';
+      const notLimit = null;
+
+      await sut.execute(notSearch, notLimit);
+      expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.getAll).toHaveBeenCalledWith(
+        notSearch,
+        notLimit,
+      );
+    });
   });
 });
