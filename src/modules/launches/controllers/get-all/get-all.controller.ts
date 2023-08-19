@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  ParseIntPipe,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { FiltersDto, LaunchesResponseDto } from '../../dto';
 import { GetAllService } from '../../application/services/get-all';
 import { OptionalParseIntPipe } from 'src/modules/shared/pipes';

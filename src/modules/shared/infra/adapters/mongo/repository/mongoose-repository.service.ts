@@ -12,7 +12,7 @@ export class MongooseRepositoryService implements LaunchesRepository {
     private readonly userModel: Model<Launch>,
   ) {}
 
-  async getAll(filtersDto: FiltersDto): Promise<any> {
+  async getAll(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
     const { search, limit, page = 1 } = filtersDto;
 
     const perPage = limit || 10;

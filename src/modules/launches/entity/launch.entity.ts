@@ -65,7 +65,7 @@ export interface Links {
 
 export interface Failure {
   time: number;
-  altitude: string | null;
+  altitude: number;
   reason: string;
 }
 
