@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { FiltersDto, LaunchesResponseDto } from '../../dto';
 import { GetAllService } from '../../application/services/get-all';
 import { OptionalParseIntPipe } from 'src/modules/shared/pipes';
@@ -19,10 +19,5 @@ export class GetAllController {
       page,
     };
     return this.getAllService.execute(filtersDto);
-  }
-
-  @Post('launches')
-  create(@Body() dto: any): Promise<any> {
-    return this.getAllService.create(dto);
   }
 }

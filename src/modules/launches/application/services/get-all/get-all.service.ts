@@ -12,8 +12,4 @@ export class GetAllService {
   async execute(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
     return await this.launchesRepository.getAll(filtersDto);
   }
-
-  async create(dto: any): Promise<any> {
-    return await this.launchesRepository.create(dto);
-  }
 }

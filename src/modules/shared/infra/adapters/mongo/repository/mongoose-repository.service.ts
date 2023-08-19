@@ -94,7 +94,7 @@ export class MongooseRepositoryService implements LaunchesRepository {
     };
   }
 
-  async create(dto: any): Promise<any> {
+  async save(dto: any): Promise<any> {
     return await this.userModel.create(dto);
   }
 }
