@@ -1,11 +1,13 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { GetAllService } from './get-all.service';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
-import { FiltersDto } from 'src/modules/launches/dto';
+import { LaunchResponseDataBuilder } from '../../../__mocks__/data-builder';
 
 describe('GetAllService', () => {
   let sut: GetAllService;
   let launchesRepository: LaunchesRepository;
+
+  const launches = LaunchResponseDataBuilder.aLaunchResponse().build();
 
   beforeEach(async () => {
     jest.clearAllMocks();
@@ -13,7 +15,7 @@ describe('GetAllService', () => {
     const LaunchesRepositoryProvider = {
       provide: 'LAUNCHES_REPOSITORY',
       useValue: {
-        getAll: jest.fn().mockResolvedValue({}),
+        getAll: jest.fn().mockResolvedValue(launches),
       },
     };
 
@@ -32,7 +34,7 @@ describe('GetAllService', () => {
 
   describe('execute()', () => {
     const search = 'tesla';
-    const limit = 4;
+    const limit = 2;
 
     it('should be called launchesRepository.getAll with correct values', async () => {
       await sut.execute(search, limit);
@@ -50,6 +52,11 @@ describe('GetAllService', () => {
         notSearch,
         notLimit,
       );
+    });
+
+    it('should be return all launches on success', async () => {
+      const result = await sut.execute(search, limit);
+      expect(result).toStrictEqual(launches);
     });
   });
 });
