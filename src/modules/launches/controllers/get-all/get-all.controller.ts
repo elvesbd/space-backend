@@ -1,4 +1,11 @@
-import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  ParseIntPipe,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { LaunchesResponseDto } from '../../dto';
 import { GetAllService } from '../../application/services/get-all';
 
@@ -9,8 +16,13 @@ export class GetAllController {
   @Get('launches')
   getAll(
     @Query('search') search: string,
-    @Query('limit', ParseIntPipe) limit: number,
+    @Query('limit') limit: number,
   ): Promise<LaunchesResponseDto> {
     return this.getAllService.execute(search, limit);
+  }
+
+  @Post('launches')
+  create(@Body() dto: any): Promise<any> {
+    return this.getAllService.create(dto);
   }
 }

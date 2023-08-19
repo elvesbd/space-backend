@@ -12,4 +12,8 @@ export class GetAllService {
   async execute(search?: string, limit?: number): Promise<LaunchesResponseDto> {
     return await this.launchesRepository.getAll(search, limit);
   }
+
+  async create(dto: any): Promise<any> {
+    return await this.launchesRepository.create(dto);
+  }
 }

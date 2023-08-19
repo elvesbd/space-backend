@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import { Fairings, Links, Failure, Core } from 'src/modules/launches/entity';
 
 @Schema()
 export class Launch extends Document {
@@ -11,8 +12,7 @@ export class Launch extends Document {
       ships: [String],
     },
   })
-  fairings: Record<string, any>;
-
+  fairings: Fairings;
   @Prop({
     type: {
       patch: {
@@ -36,26 +36,19 @@ export class Launch extends Document {
       wikipedia: String,
     },
   })
-  links: Record<string, any>;
-
+  links: Links;
   @Prop()
-  static_fire_date_utc: Date;
-
+  staticFireDateUtc: string;
   @Prop()
-  static_fire_date_unix: number;
-
+  staticFireDateUnix: number;
   @Prop()
   net: boolean;
-
   @Prop()
   window: number;
-
   @Prop()
   rocket: string;
-
   @Prop()
   success: boolean;
-
   @Prop([
     {
       time: Number,
@@ -63,47 +56,33 @@ export class Launch extends Document {
       reason: String,
     },
   ])
-  failures: Record<string, any>[];
-
+  failures: Failure[];
   @Prop()
   details: string;
-
   @Prop()
   crew: string[];
-
   @Prop()
   ships: string[];
-
   @Prop()
   capsules: string[];
-
   @Prop()
   payloads: string[];
-
   @Prop()
   launchpad: string;
-
   @Prop()
-  flight_number: number;
-
+  flightNumber: number;
   @Prop()
   name: string;
-
   @Prop()
-  date_utc: Date;
-
+  dateUtc: string;
   @Prop()
-  date_unix: number;
-
+  dateUnix: number;
   @Prop()
-  date_local: Date;
-
+  dateLocal: string;
   @Prop()
-  date_precision: string;
-
+  datePrecision: string;
   @Prop()
   upcoming: boolean;
-
   @Prop([
     {
       core: String,
@@ -117,19 +96,11 @@ export class Launch extends Document {
       landpad: String,
     },
   ])
-  cores: Record<string, any>[];
-
+  cores: Core[];
   @Prop()
-  auto_update: boolean;
-
+  autoUpdate: boolean;
   @Prop()
   tbd: boolean;
-
-  @Prop()
-  launch_library_id: string;
-
-  @Prop()
-  id: string;
 }
 
 export const LaunchSchema = SchemaFactory.createForClass(Launch);

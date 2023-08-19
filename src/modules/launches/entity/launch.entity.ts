@@ -28,19 +28,19 @@ export interface Launch {
   id: string;
 }
 
-interface Fairings {
+export interface Fairings {
   reused: boolean;
   recovery_attempt: boolean;
   recovered: boolean;
   ships: string[];
 }
 
-interface PatchLinks {
+export interface PatchLinks {
   small: string;
   large: string;
 }
 
-interface RedditLinks {
+export interface RedditLinks {
   campaign: string | null;
   launch: string | null;
   media: string | null;
@@ -52,7 +52,7 @@ interface FlickrLinks {
   original: string[];
 }
 
-interface Links {
+export interface Links {
   patch: PatchLinks;
   reddit: RedditLinks;
   flickr: FlickrLinks;
@@ -63,13 +63,13 @@ interface Links {
   wikipedia: string;
 }
 
-interface Failure {
+export interface Failure {
   time: number;
   altitude: string | null;
   reason: string;
 }
 
-interface Core {
+export interface Core {
   core: string;
   flight: number;
   gridfins: boolean;
