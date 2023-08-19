@@ -3,7 +3,7 @@ import { HealthCheckController } from './controllers/health-check';
 import { GetAllController } from './controllers/get-all/get-all.controller';
 import { GetAllService } from './application/services/get-all';
 import { SharedModule } from '../shared';
-import { TypeORMRepositoryService } from '../shared/infra/adapters';
+import { MongooseRepositoryService } from '../shared/infra/adapters/mongo/repository';
 
 @Module({
   imports: [SharedModule],
@@ -12,7 +12,7 @@ import { TypeORMRepositoryService } from '../shared/infra/adapters';
     GetAllService,
     {
       provide: 'LAUNCHES_REPOSITORY',
-      useClass: TypeORMRepositoryService,
+      useClass: MongooseRepositoryService,
     },
   ],
 })
