@@ -17,7 +17,8 @@ export class MongooseRepositoryService implements LaunchesRepository {
 
     const perPage = limit || 10;
     const query = search ? { name: { $regex: new RegExp(search, 'i') } } : {};
-    const totalDocs = await this.userModel.countDocuments(query);
+    const totalDocsQuery = this.userModel.countDocuments(query);
+    const totalDocs = await totalDocsQuery.exec();
     const totalPages = Math.ceil(totalDocs / perPage);
     const skip = (page - 1) * perPage;
 
