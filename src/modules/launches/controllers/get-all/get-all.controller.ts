@@ -6,7 +6,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { LaunchesResponseDto } from '../../dto';
+import { FiltersDto, LaunchesResponseDto } from '../../dto';
 import { GetAllService } from '../../application/services/get-all';
 
 @Controller()
@@ -17,8 +17,14 @@ export class GetAllController {
   getAll(
     @Query('search') search: string,
     @Query('limit') limit: number,
+    @Query('page') page: number,
   ): Promise<LaunchesResponseDto> {
-    return this.getAllService.execute(search, limit);
+    const filtersDto: FiltersDto = {
+      search,
+      limit,
+      page,
+    };
+    return this.getAllService.execute(filtersDto);
   }
 
   @Post('launches')

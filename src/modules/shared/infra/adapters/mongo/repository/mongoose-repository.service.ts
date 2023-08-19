@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { LaunchesResponseDto } from 'src/modules/launches/dto';
+import { FiltersDto, LaunchesResponseDto } from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { Launch } from '../schemas';
 import { Model } from 'mongoose';
@@ -12,7 +12,9 @@ export class MongooseRepositoryService implements LaunchesRepository {
     private readonly userModel: Model<Launch>,
   ) {}
 
-  async getAll(search?: string, limit?: number, page = 1): Promise<any> {
+  async getAll(filtersDto: FiltersDto): Promise<any> {
+    const { search, limit, page = 1 } = filtersDto;
+
     const perPage = limit || 10;
     const query = search ? { name: { $regex: new RegExp(search, 'i') } } : {};
     const totalDocs = await this.userModel.countDocuments(query);

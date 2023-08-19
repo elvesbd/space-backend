@@ -1,6 +1,6 @@
-import { LaunchesResponseDto } from '../dto';
+import { FiltersDto, LaunchesResponseDto } from '../dto';
 
 export interface LaunchesRepository {
-  getAll(search?: string, limit?: number): Promise<LaunchesResponseDto>;
+  getAll(filtersDto?: FiltersDto): Promise<LaunchesResponseDto>;
   create(dto: any): Promise<any>;
 }
