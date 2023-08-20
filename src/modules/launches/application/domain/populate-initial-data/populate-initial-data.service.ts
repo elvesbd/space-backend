@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
+import { LaunchDto } from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { HttpService } from 'src/modules/shared/infra/adapters/interfaces';
-import { Launch } from 'src/modules/shared/infra/adapters/mongo/schemas';
 
 @Injectable()
 export class PopulateInitialDataService {
@@ -13,7 +13,7 @@ export class PopulateInitialDataService {
   ) {}
 
   async execute(): Promise<void> {
-    const externalData: Launch[] = await this.httpService.getData();
-    await this.launchesRepository.save(externalData);
+    const externalData: LaunchDto[] = await this.httpService.getData();
+    await this.launchesRepository.create(externalData);
   }
 }

@@ -104,8 +104,8 @@ export class MongooseRepositoryService implements LaunchesRepository {
     return this.launchModel.findOne({ id });
   }
 
-  async save(dto: any): Promise<any> {
-    return await this.launchModel.create(dto);
+  async create(dto: any): Promise<void> {
+    await this.launchModel.create(dto);
   }
 
   async saveLatestData(launch: LaunchDto): Promise<void> {

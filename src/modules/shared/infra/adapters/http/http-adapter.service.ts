@@ -10,21 +10,30 @@ export class HttpAdapterService implements HttpService {
 
   private logger = new Logger(HttpAdapterService.name);
 
-  getData(): Promise<any> {
-    throw new Error('Method not implemented.');
+  async getData(): Promise<LaunchDto[]> {
+    try {
+      const { data: launches } = await firstValueFrom(
+        this.axiosHttpService.get<LaunchDto[]>(
+          ' https://api.spacexdata.com/v4/launches',
+        ),
+      );
+      return launches;
+    } catch (err) {
+      this.logger.error('An error occurred while fetching launches', err.stack);
+    }
   }
 
-  async getLatestData(): Promise<any> {
+  async getLatestData(): Promise<LaunchDto> {
     try {
-      const response = await firstValueFrom(
+      const { data: launch } = await firstValueFrom(
         this.axiosHttpService.get<LaunchDto>(
           ' https://api.spacexdata.com/v4/launches/latest',
         ),
       );
-      this.logger.log(`Foi encontrado o lançamento ${response.data.id}`);
-      return response.data;
-    } catch (exception) {
-      console.log('caiu', exception);
+      this.logger.log(`Foi encontrado o lançamento ${launch.id}`);
+      return launch;
+    } catch (err) {
+      this.logger.error('An error occurred while fetching launch', err.stack);
     }
   }
 }
