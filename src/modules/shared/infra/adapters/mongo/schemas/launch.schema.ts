@@ -101,6 +101,8 @@ export class Launch extends Document {
   autoUpdate: boolean;
   @Prop()
   tbd: boolean;
+  @Prop()
+  id: string;
 }
 
 export const LaunchSchema = SchemaFactory.createForClass(Launch);

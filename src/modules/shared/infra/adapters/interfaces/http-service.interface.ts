@@ -1,3 +1,6 @@
+import { LaunchDto } from 'src/modules/launches/dto';
+
 export interface HttpService {
-  getDataFromExternalAPI(): Promise<any>;
+  getLatestData(): Promise<LaunchDto>;
+  getData(): Promise<any>;
 }

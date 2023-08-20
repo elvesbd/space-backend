@@ -1,6 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { FiltersDto, LaunchesResponseDto } from 'src/modules/launches/dto';
+import {
+  FiltersDto,
+  LaunchDto,
+  LaunchesResponseDto,
+} from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { Launch } from '../schemas';
 import { Model } from 'mongoose';
@@ -9,20 +13,22 @@ import { Model } from 'mongoose';
 export class MongooseRepositoryService implements LaunchesRepository {
   constructor(
     @InjectModel(Launch.name)
-    private readonly userModel: Model<Launch>,
+    private readonly launchModel: Model<Launch>,
   ) {}
+
+  private logger = new Logger(MongooseRepositoryService.name);
 
   async getAll(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
     const { search, limit, page = 1 } = filtersDto;
 
     const perPage = limit || 10;
     const query = search ? { name: { $regex: new RegExp(search, 'i') } } : {};
-    const totalDocsQuery = this.userModel.countDocuments(query);
+    const totalDocsQuery = this.launchModel.countDocuments(query);
     const totalDocs = await totalDocsQuery.exec();
     const totalPages = Math.ceil(totalDocs / perPage);
     const skip = (page - 1) * perPage;
 
-    const launches = await this.userModel
+    const launches = await this.launchModel
       .find(query)
       .skip(skip)
       .limit(perPage)
@@ -94,7 +100,21 @@ export class MongooseRepositoryService implements LaunchesRepository {
     };
   }
 
+  async getOne(id: string): Promise<Launch | null> {
+    return this.launchModel.findOne({ id });
+  }
+
   async save(dto: any): Promise<any> {
-    return await this.userModel.create(dto);
+    return await this.launchModel.create(dto);
+  }
+
+  async saveLatestData(launch: LaunchDto): Promise<void> {
+    const existingLaunch = await this.getOne(launch.id);
+    if (existingLaunch) {
+      this.logger.log(`O lançamento ${launch.id} já existe na base de dados!`);
+    } else {
+      await this.launchModel.create(launch);
+      this.logger.log('Lançamento salvo com sucesso!');
+    }
   }
 }
