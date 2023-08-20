@@ -1,13 +1,13 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { Launch } from '../schemas';
 import {
   FiltersDto,
   LaunchDto,
   LaunchesResponseDto,
 } from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
-import { Launch } from '../schemas';
-import { Model } from 'mongoose';
 
 @Injectable()
 export class MongooseRepositoryService implements LaunchesRepository {

@@ -5,10 +5,10 @@ import { firstValueFrom } from 'rxjs';
 import { LaunchDto } from 'src/modules/launches/dto';
 
 @Injectable()
-export class HttpAdapterService implements HttpService {
+export class HttpSpaceXAdapterService implements HttpService {
   constructor(private readonly axiosHttpService: AxiosHttpService) {}
 
-  private logger = new Logger(HttpAdapterService.name);
+  private logger = new Logger(HttpSpaceXAdapterService.name);
 
   async getData(): Promise<LaunchDto[]> {
     try {

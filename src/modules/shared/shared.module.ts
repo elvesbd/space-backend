@@ -1,14 +1,13 @@
-import { Module, forwardRef } from '@nestjs/common';
-import { MongooseRepositoryService } from './infra/adapters/mongo/repository';
-import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Launch, LaunchSchema } from './infra/adapters/mongo/schemas';
-import { ScheduleModule } from '@nestjs/schedule';
-import { TaskService } from './infra/services/cron';
-import { HttpAdapterService } from './infra/adapters/http';
 import { HttpModule } from '@nestjs/axios';
-import { ExternalApiDataImporter } from '../launches/application/domain';
+import { MongooseModule } from '@nestjs/mongoose';
+import { Module, forwardRef } from '@nestjs/common';
+import { ScheduleModule } from '@nestjs/schedule';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseRepositoryService } from './infra/adapters/mongo/repository';
 import { LaunchesModule } from '../launches';
+import { TaskService } from './infra/services/cron';
+import { HttpSpaceXAdapterService } from './infra/adapters/http';
+import { Launch, LaunchSchema } from './infra/adapters/mongo/schemas';
 
 @Module({
   imports: [
@@ -25,6 +24,6 @@ import { LaunchesModule } from '../launches';
     MongooseModule.forFeature([{ name: Launch.name, schema: LaunchSchema }]),
     ScheduleModule.forRoot(),
   ],
-  providers: [MongooseRepositoryService, TaskService, HttpAdapterService],
+  providers: [MongooseRepositoryService, TaskService, HttpSpaceXAdapterService],
 })
 export class SharedModule {}

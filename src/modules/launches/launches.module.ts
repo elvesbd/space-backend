@@ -1,14 +1,14 @@
+import { HttpModule } from '@nestjs/axios';
+import { MongooseModule } from '@nestjs/mongoose';
 import { Module, forwardRef } from '@nestjs/common';
 import { HealthCheckController } from './controllers/health-check';
 import { GetAllController } from './controllers/get-all/get-all.controller';
-import { GetAllService } from './application/services/get-all';
 import { SharedModule } from '../shared';
 import { MongooseRepositoryService } from '../shared/infra/adapters/mongo/repository';
-import { MongooseModule } from '@nestjs/mongoose';
 import { Launch, LaunchSchema } from '../shared/infra/adapters/mongo/schemas';
-import { HttpAdapterService } from '../shared/infra/adapters/http';
-import { HttpModule } from '@nestjs/axios';
+import { HttpSpaceXAdapterService } from '../shared/infra/adapters/http';
 import { ExternalApiDataImporter } from './application/domain';
+import { GetAllService } from './application/services/get-all';
 
 @Module({
   imports: [
@@ -26,7 +26,7 @@ import { ExternalApiDataImporter } from './application/domain';
     },
     {
       provide: 'HTTP_SERVICE',
-      useClass: HttpAdapterService,
+      useClass: HttpSpaceXAdapterService,
     },
   ],
   exports: [ExternalApiDataImporter],

@@ -1,1 +1,1 @@
-export * from './http-adapter.service';
+export * from './http-space-x-adapter.service';
