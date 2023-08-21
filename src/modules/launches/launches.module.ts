@@ -10,6 +10,13 @@ import { HttpSpaceXAdapterService } from '../shared/infra/adapters/http';
 import { ExternalApiDataImporter } from './application/domain';
 import { GetAllService } from './application/services/get-all';
 import { PopulateInitialDataService } from './application/domain/populate-initial-data';
+import { LaunchService } from './application/services/stats/statis.service';
+import { GetLaunchesChartDataController } from './controllers/get-launches-chart-data';
+import {
+  GetLaunchChartDataService,
+  GetLaunchPieChartDataService,
+} from './application/services';
+import { GetLaunchPieChartDataController } from './controllers';
 
 @Module({
   imports: [
@@ -17,11 +24,19 @@ import { PopulateInitialDataService } from './application/domain/populate-initia
     forwardRef(() => SharedModule),
     MongooseModule.forFeature([{ name: Launch.name, schema: LaunchSchema }]),
   ],
-  controllers: [HealthCheckController, GetAllController],
+  controllers: [
+    HealthCheckController,
+    GetAllController,
+    GetLaunchesChartDataController,
+    GetLaunchPieChartDataController,
+  ],
   providers: [
     GetAllService,
     ExternalApiDataImporter,
     PopulateInitialDataService,
+    LaunchService,
+    GetLaunchChartDataService,
+    GetLaunchPieChartDataService,
     {
       provide: 'LAUNCHES_REPOSITORY',
       useClass: MongooseRepositoryService,

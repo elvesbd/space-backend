@@ -2,7 +2,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Launch } from '../schemas';
-import { FiltersDto, LaunchesResponseDto } from 'src/modules/launches/dto';
+import {
+  FiltersDto,
+  LaunchesResponseDto,
+  YearlyRocketCountResponseDto,
+} from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { LaunchMapper } from '../mappers/launch.mapper';
 import { ExternaLaunchDto } from '../../http/dto';
@@ -13,14 +17,21 @@ export class MongooseRepositoryService implements LaunchesRepository {
     @InjectModel(Launch.name)
     private readonly launchModel: Model<Launch>,
   ) {}
+  getLaunchesByYearAndRocket(): Promise<YearlyRocketCountResponseDto> {
+    throw new Error('Method not implemented.');
+  }
 
   private logger = new Logger(MongooseRepositoryService.name);
 
-  async getAll(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
+  async getAll(): Promise<Launch[]> {
+    return await this.launchModel.find().exec();
+  }
+
+  async getAllByFilters(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
     const { search, limit, page = 1 } = filtersDto;
 
     const perPage = limit || 10;
-    const query = search ? { name: { $regex: new RegExp(search, 'i') } } : {};
+    const query = search ? { rocket: { $regex: new RegExp(search, 'i') } } : {};
     const totalDocsQuery = this.launchModel.countDocuments(query);
     const totalDocs = await totalDocsQuery.exec();
     const totalPages = Math.ceil(totalDocs / perPage);
@@ -46,7 +57,7 @@ export class MongooseRepositoryService implements LaunchesRepository {
   }
 
   async getOne(id: string): Promise<Launch | null> {
-    return this.launchModel.findOne({ _id: id });
+    return await this.launchModel.findOne({ _id: id }).exec();
   }
 
   async create(launches: ExternaLaunchDto[]): Promise<void> {

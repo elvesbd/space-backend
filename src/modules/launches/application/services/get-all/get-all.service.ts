@@ -10,6 +10,6 @@ export class GetAllService {
   ) {}
 
   async execute(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
-    return await this.launchesRepository.getAll(filtersDto);
+    return await this.launchesRepository.getAllByFilters(filtersDto);
   }
 }
