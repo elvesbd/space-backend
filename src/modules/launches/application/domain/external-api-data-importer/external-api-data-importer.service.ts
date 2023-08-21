@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LaunchesRepository } from '../../repositories';
+import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { HttpService } from 'src/modules/shared/infra/adapters/interfaces';
 
 @Injectable()

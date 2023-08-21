@@ -1,8 +1,10 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { readFileSync, writeFileSync } from 'fs';
-import { ExternalApiDataImporter } from 'src/modules/launches/application/domain';
-import { PopulateInitialDataService } from 'src/modules/launches/application/domain/populate-initial-data';
+import {
+  ExternalApiDataImporter,
+  PopulateInitialDataService,
+} from 'src/modules/launches/application/domain';
 
 @Injectable()
 export class TaskService implements OnModuleInit {
@@ -44,7 +46,7 @@ export class TaskService implements OnModuleInit {
     await this.populateInitialDataService.execute();
   }
 
-  //@Cron(CronExpression.EVERY_10_SECONDS)
+  @Cron(CronExpression.EVERY_DAY_AT_9AM)
   async handle(): Promise<void> {
     this.logger.log('Iniciando a busca por lançamentos recentes!');
     await this.externalApiDataImporter.execute();

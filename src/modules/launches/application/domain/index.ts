@@ -1,1 +1,2 @@
-export * from './external-api-data-importer.service';
+export * from './populate-initial-data';
+export * from './external-api-data-importer';
