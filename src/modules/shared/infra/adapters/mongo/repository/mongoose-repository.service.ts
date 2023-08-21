@@ -17,9 +17,6 @@ export class MongooseRepositoryService implements LaunchesRepository {
     @InjectModel(Launch.name)
     private readonly launchModel: Model<Launch>,
   ) {}
-  getLaunchesByYearAndRocket(): Promise<YearlyRocketCountResponseDto> {
-    throw new Error('Method not implemented.');
-  }
 
   private logger = new Logger(MongooseRepositoryService.name);
 
@@ -27,13 +24,18 @@ export class MongooseRepositoryService implements LaunchesRepository {
     return await this.launchModel.find().exec();
   }
 
-  async getAllByFilters(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
+  async getOne(id: string): Promise<Launch | null> {
+    return await this.launchModel.findOne({ _id: id }).exec();
+  }
+
+  async getAllWithFilters(
+    filtersDto: FiltersDto,
+  ): Promise<LaunchesResponseDto> {
     const { search, limit, page = 1 } = filtersDto;
 
     const perPage = limit || 10;
     const query = search ? { rocket: { $regex: new RegExp(search, 'i') } } : {};
-    const totalDocsQuery = this.launchModel.countDocuments(query);
-    const totalDocs = await totalDocsQuery.exec();
+    const totalDocs = await this.countDocuments(query);
     const totalPages = Math.ceil(totalDocs / perPage);
     const skip = (page - 1) * perPage;
 
@@ -56,8 +58,8 @@ export class MongooseRepositoryService implements LaunchesRepository {
     };
   }
 
-  async getOne(id: string): Promise<Launch | null> {
-    return await this.launchModel.findOne({ _id: id }).exec();
+  async countDocuments(query: Record<string, any>): Promise<number> {
+    return this.launchModel.countDocuments(query).exec();
   }
 
   async create(launches: ExternaLaunchDto[]): Promise<void> {
@@ -67,7 +69,7 @@ export class MongooseRepositoryService implements LaunchesRepository {
     }
   }
 
-  async saveLatestData(launch: ExternaLaunchDto): Promise<void> {
+  async saveLatestLaunch(launch: ExternaLaunchDto): Promise<void> {
     const existingLaunch = await this.getOne(launch.id);
     if (existingLaunch) {
       this.logger.log(`O lançamento ${launch.id} já existe na base de dados!`);

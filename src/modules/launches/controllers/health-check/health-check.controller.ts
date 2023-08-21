@@ -1,10 +1,10 @@
 import { Controller, Get } from '@nestjs/common';
+import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { HealthCheckResponseDto } from './dto';
-import { ApiOperation, ApiOkResponse } from '@nestjs/swagger';
 
+@ApiTags('Health Check')
 @Controller()
 export class HealthCheckController {
-  @ApiOperation({ summary: 'health check' })
   @ApiOkResponse({
     type: HealthCheckResponseDto,
   })

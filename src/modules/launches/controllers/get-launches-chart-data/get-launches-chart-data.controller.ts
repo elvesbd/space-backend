@@ -1,9 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiOperation, ApiOkResponse } from '@nestjs/swagger';
-import { GetLaunchChartDataService } from '../../application/services';
+import { ApiOperation, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { YearlyRocketCountResponseDto } from '../../dto';
+import { GetLaunchChartDataService } from '../../application/services';
+import { LaunchesApiTag, LaunchesApiPath } from '../launches-api.constants';
 
-@Controller('launches')
+@ApiTags(LaunchesApiTag)
+@Controller(LaunchesApiPath)
 export class GetLaunchesChartDataController {
   constructor(
     private readonly getLaunchChartDataService: GetLaunchChartDataService,

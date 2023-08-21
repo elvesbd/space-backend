@@ -3,13 +3,13 @@ import { FiltersDto, LaunchesResponseDto } from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 
 @Injectable()
-export class GetAllService {
+export class GetAllLaunchesService {
   constructor(
     @Inject('LAUNCHES_REPOSITORY')
     private readonly launchesRepository: LaunchesRepository,
   ) {}
 
-  async execute(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
-    return await this.launchesRepository.getAllByFilters(filtersDto);
+  async handle(filtersDto: FiltersDto): Promise<LaunchesResponseDto> {
+    return await this.launchesRepository.getAllWithFilters(filtersDto);
   }
 }

@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { GetAllService } from './get-all.service';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
-import { LaunchResponseDataBuilder } from '../../../__mocks__/data-builder';
 import { FiltersDto } from 'src/modules/launches/dto';
+import { GetAllLaunchesService } from './get-all-launches.service';
+import { LaunchResponseDataBuilder } from '../../../__mocks__/data-builder';
 
-describe('GetAllService', () => {
-  let sut: GetAllService;
+describe('GetAllLaunchesService', () => {
+  let sut: GetAllLaunchesService;
   let launchesRepository: LaunchesRepository;
 
   const launches = LaunchResponseDataBuilder.aLaunchResponse().build();
@@ -21,10 +21,10 @@ describe('GetAllService', () => {
     };
 
     const module: TestingModule = await Test.createTestingModule({
-      providers: [GetAllService, LaunchesRepositoryProvider],
+      providers: [GetAllLaunchesService, LaunchesRepositoryProvider],
     }).compile();
 
-    sut = module.get<GetAllService>(GetAllService);
+    sut = module.get<GetAllLaunchesService>(GetAllLaunchesService);
     launchesRepository = module.get<LaunchesRepository>('LAUNCHES_REPOSITORY');
   });
 
@@ -33,7 +33,7 @@ describe('GetAllService', () => {
     expect(launchesRepository).toBeDefined();
   });
 
-  describe('execute()', () => {
+  describe('handle()', () => {
     const filtersDto: FiltersDto = {
       search: 'tesla',
       limit: 4,
@@ -41,7 +41,7 @@ describe('GetAllService', () => {
     };
 
     it('should be called launchesRepository.getAll with correct values', async () => {
-      await sut.execute(filtersDto);
+      await sut.handle(filtersDto);
       expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
       expect(launchesRepository.getAll).toHaveBeenCalledWith(filtersDto);
     });
@@ -49,13 +49,13 @@ describe('GetAllService', () => {
     it('should be called launchesRepository.getAll with correct values when not filters', async () => {
       const notFilters = {};
 
-      await sut.execute(notFilters);
+      await sut.handle(notFilters);
       expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
       expect(launchesRepository.getAll).toHaveBeenCalledWith(notFilters);
     });
 
     it('should be return all launches on success', async () => {
-      const result = await sut.execute(filtersDto);
+      const result = await sut.handle(filtersDto);
       expect(result).toStrictEqual(launches);
     });
   });

@@ -12,7 +12,7 @@ export class ExternalApiDataImporter {
   ) {}
 
   async execute(): Promise<void> {
-    const externalData = await this.httpService.getLatestData();
-    await this.launchesRepository.saveLatestData(externalData);
+    const launch = await this.httpService.getLatestData();
+    await this.launchesRepository.saveLatestLaunch(launch);
   }
 }
