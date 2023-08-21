@@ -1,7 +1,8 @@
-import { FiltersDto, LaunchDto, LaunchesResponseDto } from '../dto';
+import { ExternaLaunchDto } from 'src/modules/shared/infra/adapters/http/dto';
+import { FiltersDto, LaunchesResponseDto } from '../dto';
 
 export interface LaunchesRepository {
   getAll(filtersDto?: FiltersDto): Promise<LaunchesResponseDto>;
-  create(launches: LaunchDto[]): Promise<void>;
-  saveLatestData(launch: LaunchDto): Promise<void>;
+  create(launches: ExternaLaunchDto[]): Promise<void>;
+  saveLatestData(launch: ExternaLaunchDto): Promise<void>;
 }

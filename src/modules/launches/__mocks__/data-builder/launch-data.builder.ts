@@ -1,7 +1,7 @@
-import { LaunchDto } from '../../dto';
+import { LaunchEntity } from '../../entity';
 
 export class LaunchDataBuilder {
-  private launchDto: LaunchDto = {
+  private launch: LaunchEntity = {
     fairings: null,
     links: null,
     staticFireDateUtc: '2020-05-22T17:39:00.000Z',
@@ -41,7 +41,7 @@ export class LaunchDataBuilder {
     return new LaunchDataBuilder();
   }
 
-  build(): LaunchDto {
-    return this.launchDto;
+  build(): LaunchEntity {
+    return this.launch;
   }
 }

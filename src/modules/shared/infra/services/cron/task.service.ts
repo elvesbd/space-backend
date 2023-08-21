@@ -44,7 +44,7 @@ export class TaskService implements OnModuleInit {
     await this.populateInitialDataService.execute();
   }
 
-  @Cron(CronExpression.EVERY_10_SECONDS)
+  //@Cron(CronExpression.EVERY_10_SECONDS)
   async handle(): Promise<void> {
     this.logger.log('Iniciando a busca por lançamentos recentes!');
     await this.externalApiDataImporter.execute();

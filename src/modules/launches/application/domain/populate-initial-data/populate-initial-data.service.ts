@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LaunchDto } from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
+import { ExternaLaunchDto } from 'src/modules/shared/infra/adapters/http/dto';
 import { HttpService } from 'src/modules/shared/infra/adapters/interfaces';
 
 @Injectable()
@@ -13,8 +13,7 @@ export class PopulateInitialDataService {
   ) {}
 
   async execute(): Promise<void> {
-    console.log('PopulateInitialDataService');
-    const launches: LaunchDto[] = await this.httpService.getData();
+    const launches: ExternaLaunchDto[] = await this.httpService.getData();
     await this.launchesRepository.create(launches);
   }
 }

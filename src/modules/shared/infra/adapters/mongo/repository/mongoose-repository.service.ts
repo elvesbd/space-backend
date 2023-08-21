@@ -2,13 +2,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Launch } from '../schemas';
-import {
-  FiltersDto,
-  LaunchDto,
-  LaunchesResponseDto,
-} from 'src/modules/launches/dto';
+import { FiltersDto, LaunchesResponseDto } from 'src/modules/launches/dto';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { LaunchMapper } from '../mappers/launch.mapper';
+import { ExternaLaunchDto } from '../../http/dto';
 
 @Injectable()
 export class MongooseRepositoryService implements LaunchesRepository {
@@ -49,22 +46,23 @@ export class MongooseRepositoryService implements LaunchesRepository {
   }
 
   async getOne(id: string): Promise<Launch | null> {
-    return this.launchModel.findOne({ id });
+    return this.launchModel.findOne({ _id: id });
   }
 
-  async create(launches: LaunchDto[]): Promise<void> {
+  async create(launches: ExternaLaunchDto[]): Promise<void> {
     for (const launch of launches) {
-      const document = LaunchMapper.toPersistence(launch);
-      await this.launchModel.create(document);
+      const { id, ...document } = LaunchMapper.toPersistence(launch);
+      await this.launchModel.create({ _id: id, ...document });
     }
   }
 
-  async saveLatestData(launch: LaunchDto): Promise<void> {
+  async saveLatestData(launch: ExternaLaunchDto): Promise<void> {
     const existingLaunch = await this.getOne(launch.id);
     if (existingLaunch) {
       this.logger.log(`O lançamento ${launch.id} já existe na base de dados!`);
     } else {
-      await this.launchModel.create(launch);
+      const document = LaunchMapper.toPersistence(launch);
+      await this.launchModel.create(document);
       this.logger.log('Lançamento salvo com sucesso!');
     }
   }

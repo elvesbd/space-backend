@@ -2,7 +2,7 @@ import { HttpService as AxiosHttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '../interfaces';
 import { firstValueFrom } from 'rxjs';
-import { LaunchDto } from 'src/modules/launches/dto';
+import { ExternaLaunchDto } from './dto';
 
 @Injectable()
 export class HttpSpaceXAdapterService implements HttpService {
@@ -10,24 +10,23 @@ export class HttpSpaceXAdapterService implements HttpService {
 
   private logger = new Logger(HttpSpaceXAdapterService.name);
 
-  async getData(): Promise<LaunchDto[]> {
+  async getData(): Promise<ExternaLaunchDto[]> {
     try {
       const { data: launches } = await firstValueFrom(
-        this.axiosHttpService.get<LaunchDto[]>(
+        this.axiosHttpService.get<ExternaLaunchDto[]>(
           ' https://api.spacexdata.com/v4/launches',
         ),
       );
-      console.log(launches);
       return launches;
     } catch (err) {
       this.logger.error('An error occurred while fetching launches', err.stack);
     }
   }
 
-  async getLatestData(): Promise<LaunchDto> {
+  async getLatestData(): Promise<ExternaLaunchDto> {
     try {
       const { data: launch } = await firstValueFrom(
-        this.axiosHttpService.get<LaunchDto>(
+        this.axiosHttpService.get<ExternaLaunchDto>(
           ' https://api.spacexdata.com/v4/launches/latest',
         ),
       );
