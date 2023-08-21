@@ -1,73 +1,95 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Space X API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+<!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![GitHub repo size](https://img.shields.io/github/repo-size/elvesbd/space-backend?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/elvesbd/space-backend?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/elvesbd/space-backend?style=for-the-badge)
+![GitHub issues](https://img.shields.io/github/issues-raw/elvesbd/space-backend?style=for-the-badge)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/elvesbd/space-backend?style=for-the-badge)
 
-## Description
+<img src="https://i.imgur.com/mVfMOTb.png" alt="exemplo imagem">
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+# Projeto SpaceX API
 
-## Installation
+Bem-vindo ao README do projeto SpaceX API! Este projeto tem como objetivo fornecer informações sobre os lançamentos da SpaceX e estatísticas dos foguetes por meio de vários endpoints de API. Abaixo, você encontrará detalhes sobre as rotas implementadas, as estruturas de dados, a integração com uma API externa e um cron job agendado.
 
-```bash
-$ npm install
-```
+## Rotas Implementadas
 
-## Running the app
+### \[GET\] /
 
-```bash
-# development
-$ npm run start
+- Esta rota retorna uma simples mensagem de boas-vindas.
+- Endpoint: `/`
+- Resposta: "Desafio Fullstack 🏅 - SpaceX API"
 
-# watch mode
-$ npm run start:dev
+### \[GET\] /launches
 
-# production mode
-$ npm run start:prod
-```
+- Esta rota lista dados de lançamentos com suporte para paginação e funcionalidade de busca.
+- Endpoint: `/launches`
+- Parâmetros de Consulta:
+  - `search` (opcional): Termo de busca para filtrar lançamentos.
+  - `limit` (opcional): Limite do número de lançamentos por página.
+- Resposta: Lista de dados de lançamento.
 
-## Test
+### \[GET\] /launches/stats/bar
 
-```bash
-# unit tests
-$ npm run test
+- Esta rota fornece estatísticas anuais de lançamento de foguetes em formato de gráfico de barras.
+- Endpoint: `/launches/stats/bar`
+- Resposta: Contagens anuais de lançamento de foguetes com IDs de foguetes associados e totais de lançamento.
 
-# e2e tests
-$ npm run test:e2e
+### \[GET\] /launches/stats/pie
 
-# test coverage
-$ npm run test:cov
-```
+- Esta rota oferece estatísticas de sucesso e falha de lançamento de foguetes em formato de gráfico de pizza.
+- Endpoint: `/launches/stats/pie`
+- Resposta: Contagens específicas do foguete de sucesso e falha, juntamente com totais gerais de sucesso e falha.
 
-## Support
+## Integração com API Externa
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Na primeira execução do aplicativo, um script é acionado para integrar com a [API SpaceX](https://github.com/r-spacex/SpaceX-API). Essa integração popula o banco de dados local com dados relevantes de lançamento e foguete. Isso garante que o aplicativo comece com informações precisas e atualizadas.
 
-## Stay in touch
+## Cron Job Agendado
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+Um cron job foi implementado para ser executado diariamente às 9:00 da manhã. Esse cron job busca os dados de lançamento mais recentes da API externa e atualiza o banco de dados local. Isso mantém o aplicativo atualizado e alinhado com os lançamentos mais recentes da SpaceX.
 
-## License
+## Swagger
 
-Nest is [MIT licensed](LICENSE).
+O projeto também possui uma documentação Swagger implementada. Você pode acessar a documentação em [http://localhost:3000/api/v1](http://localhost:3000/api/v1) após iniciar o aplicativo.
+
+## Começando
+
+Para começar com o projeto SpaceX API, siga estas etapas:
+
+1. Clone este repositório para o seu ambiente local.
+2. Instale as dependências necessárias usando `npm install` ou `yarn install`.
+3. Execute o aplicativo usando `npm start` ou `yarn start`.
+
+Sinta-se à vontade para explorar as rotas implementadas, testar os endpoints da API e visualizar as estatísticas de lançamento.
+
+## Conclusão
+
+Este projeto demonstra o uso da API SpaceX para fornecer dados informativos sobre os lançamentos da SpaceX e estatísticas dos foguetes. Com as rotas implementadas, integração com API externa e um cron job agendado, o aplicativo garante que os usuários tenham acesso às informações mais recentes e estatísticas relevantes.
+
+Para quaisquer dúvidas ou comentários, sinta-se à vontade para entrar em contato!
+
+Aproveite a exploração do cosmos com a SpaceX API! 🚀🌌
+
+## 🤝 Colaborador
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="#">
+        <img src="https://github.com/elvesbd.png" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
+        <sub>
+          <b>Elves Brito</b>
+        </sub>
+      </a>
+    </td>
+  </tr>
+</table>
+
+## 📝 Licença
+
+Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
+
+[⬆ Voltar ao topo](#Fincheck)<br>
