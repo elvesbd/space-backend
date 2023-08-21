@@ -25,6 +25,7 @@ export class LaunchDto {
   cores: Core[];
   autoUpdate: boolean;
   tbd: boolean;
+  launchLibraryId: string;
 }
 
 class Fairings {

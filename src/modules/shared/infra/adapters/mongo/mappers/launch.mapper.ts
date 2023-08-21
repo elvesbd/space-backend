@@ -1,14 +1,14 @@
-/* import { LaunchDto } from 'src/modules/launches/dto';
+import { LaunchDto } from 'src/modules/launches/dto';
 import { Launch } from '../schemas';
 
 export class LaunchMapper {
-  public static toDto(launches: Launch[]): LaunchDto[] {
-    const mappedLaunches = launches.map((launch) => ({
-      id: launch._id.toString(),
+  public static toPersistence(launch: any): LaunchDto {
+    return {
+      id: launch.id,
       fairings: launch.fairings,
       links: launch.links,
-      static_fire_date_utc: launch.static_fire_date_utc,
-      static_fire_date_unix: launch.static_fire_date_unix,
+      staticFireDateUtc: launch.static_fire_date_utc,
+      staticFireDateUnix: launch.static_fire_date_unix,
       net: launch.net,
       window: launch.window,
       rocket: launch.rocket,
@@ -20,20 +20,17 @@ export class LaunchMapper {
       capsules: launch.capsules,
       payloads: launch.payloads,
       launchpad: launch.launchpad,
-      flight_number: launch.flight_number,
+      flightNumber: launch.flight_number,
       name: launch.name,
-      date_utc: launch.date_utc,
-      date_unix: launch.date_unix,
-      date_local: launch.date_local,
-      date_precision: launch.date_precision,
+      dateUtc: launch.date_utc,
+      dateUnix: launch.date_unix,
+      dateLocal: launch.date_local,
+      datePrecision: launch.date_precision,
       upcoming: launch.upcoming,
       cores: launch.cores,
-      auto_update: launch.auto_update,
+      autoUpdate: launch.auto_update,
       tbd: launch.tbd,
-      launch_library_id: launch.launch_library_id,
-    }));
-
-    return mappedLaunches;
+      launchLibraryId: launch.launch_library_id,
+    };
   }
 }
- */

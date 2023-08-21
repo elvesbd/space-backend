@@ -1,8 +1,8 @@
 import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { readFileSync, writeFileSync } from 'fs';
-import { readFile } from 'fs/promises';
 import { ExternalApiDataImporter } from 'src/modules/launches/application/domain';
+import { PopulateInitialDataService } from 'src/modules/launches/application/domain/populate-initial-data';
 
 @Injectable()
 export class TaskService implements OnModuleInit {
@@ -11,6 +11,7 @@ export class TaskService implements OnModuleInit {
 
   constructor(
     private readonly externalApiDataImporter: ExternalApiDataImporter,
+    private readonly populateInitialDataService: PopulateInitialDataService,
   ) {}
 
   private logger = new Logger(TaskService.name);
@@ -40,7 +41,7 @@ export class TaskService implements OnModuleInit {
 
   async handlePopulate(): Promise<void> {
     this.logger.log('Carregando dados iniciais para o banco!');
-    //await this.externalApiDataImporter.execute();
+    await this.populateInitialDataService.execute();
   }
 
   @Cron(CronExpression.EVERY_10_SECONDS)

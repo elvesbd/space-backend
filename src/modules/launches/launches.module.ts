@@ -9,6 +9,7 @@ import { Launch, LaunchSchema } from '../shared/infra/adapters/mongo/schemas';
 import { HttpSpaceXAdapterService } from '../shared/infra/adapters/http';
 import { ExternalApiDataImporter } from './application/domain';
 import { GetAllService } from './application/services/get-all';
+import { PopulateInitialDataService } from './application/domain/populate-initial-data';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { GetAllService } from './application/services/get-all';
   providers: [
     GetAllService,
     ExternalApiDataImporter,
+    PopulateInitialDataService,
     {
       provide: 'LAUNCHES_REPOSITORY',
       useClass: MongooseRepositoryService,
@@ -29,6 +31,6 @@ import { GetAllService } from './application/services/get-all';
       useClass: HttpSpaceXAdapterService,
     },
   ],
-  exports: [ExternalApiDataImporter],
+  exports: [ExternalApiDataImporter, PopulateInitialDataService],
 })
 export class LaunchesModule {}

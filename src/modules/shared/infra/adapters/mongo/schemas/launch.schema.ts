@@ -1,13 +1,19 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Fairings, Links, Failure, Core } from 'src/modules/launches/entity';
+import {
+  Fairings,
+  Links,
+  Failure,
+  Core,
+  LaunchEntity,
+} from 'src/modules/launches/entity';
 
 @Schema()
-export class Launch extends Document {
+export class Launch extends Document implements LaunchEntity {
   @Prop({
     type: {
       reused: Boolean,
-      recovery_attempt: Boolean,
+      recoveryAttempt: Boolean,
       recovered: Boolean,
       ships: [String],
     },
@@ -101,6 +107,8 @@ export class Launch extends Document {
   autoUpdate: boolean;
   @Prop()
   tbd: boolean;
+  @Prop()
+  launchLibraryId: string;
   @Prop()
   id: string;
 }

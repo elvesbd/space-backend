@@ -33,6 +33,7 @@ export class LaunchDataBuilder {
     datePrecision: 'hour',
     upcoming: false,
     cores: [null],
+    launchLibraryId: '3ac87d46ffd86e000604b199',
     id: '5eb87d46ffd86e000604b388',
   };
 

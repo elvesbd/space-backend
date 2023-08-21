@@ -13,7 +13,8 @@ export class PopulateInitialDataService {
   ) {}
 
   async execute(): Promise<void> {
-    const externalData: LaunchDto[] = await this.httpService.getData();
-    await this.launchesRepository.create(externalData);
+    console.log('PopulateInitialDataService');
+    const launches: LaunchDto[] = await this.httpService.getData();
+    await this.launchesRepository.create(launches);
   }
 }

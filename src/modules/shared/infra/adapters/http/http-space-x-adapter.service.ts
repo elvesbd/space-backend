@@ -17,6 +17,7 @@ export class HttpSpaceXAdapterService implements HttpService {
           ' https://api.spacexdata.com/v4/launches',
         ),
       );
+      console.log(launches);
       return launches;
     } catch (err) {
       this.logger.error('An error occurred while fetching launches', err.stack);
