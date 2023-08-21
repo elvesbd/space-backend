@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { LaunchesModule } from './modules/launches';
-import { SharedModule } from './modules/shared';
 import { ConfigModule } from '@nestjs/config';
+import { SharedModule } from './modules/shared';
+import { LaunchesModule } from './modules/launches';
 
 @Module({
   imports: [
