@@ -79,7 +79,7 @@ Aproveite a exploração do cosmos com a SpaceX API! 🚀🌌
   <tr>
     <td align="center">
       <a href="#">
-        <img src="https://github.com/elvesbd.png" width="100px;" alt="Foto do Iuri Silva no GitHub"/><br>
+        <img src="https://github.com/elvesbd.png" width="100px;" alt="Foto do Elves Brito no GitHub"/><br>
         <sub>
           <b>Elves Brito</b>
         </sub>
