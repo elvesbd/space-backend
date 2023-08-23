@@ -3,6 +3,7 @@ import {
   LaunchSummaryResponseDto,
   RocketLaunch,
 } from 'src/modules/launches/dto';
+import { LaunchEntity } from 'src/modules/launches/entity';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 
 @Injectable()
@@ -15,32 +16,40 @@ export class GetLaunchPieChartDataService {
   async handle(): Promise<LaunchSummaryResponseDto> {
     const launches = await this.launchesRepository.getAll();
 
-    const rocketCounts: Record<string, RocketLaunch> = launches.reduce(
-      (acc, launch) => {
-        const rocketId = launch.rocket;
-        if (!acc[rocketId]) {
-          acc[rocketId] = {
-            rocket: rocketId,
-            name: launch.name,
-            launchesTotal: 0,
-          };
-        }
-
-        acc[rocketId].launchesTotal++;
-
-        return acc;
-      },
-      {} as Record<string, RocketLaunch>,
-    );
-
-    const totalRocketLaunches = Object.values(rocketCounts).reduce(
-      (sum, counts) => sum + counts.launchesTotal,
-      0,
-    );
+    const rocketCounts = this.calculateRocketCounts(launches);
+    const totalRocketLaunches = this.calculateTotalRocketLaunches(rocketCounts);
 
     return {
       rocketLaunchCounts: Object.values(rocketCounts),
       totalRocketLaunches,
     };
+  }
+
+  private calculateRocketCounts(
+    launches: LaunchEntity[],
+  ): Record<string, RocketLaunch> {
+    return launches.reduce((acc, launch) => {
+      const { rocket, name } = launch;
+      if (!acc[rocket]) {
+        acc[rocket] = {
+          rocket,
+          name,
+          launchesTotal: 0,
+        };
+      }
+
+      acc[rocket].launchesTotal++;
+
+      return acc;
+    }, {} as Record<string, RocketLaunch>);
+  }
+
+  private calculateTotalRocketLaunches(
+    rocketCounts: Record<string, RocketLaunch>,
+  ): number {
+    return Object.values(rocketCounts).reduce(
+      (sum, { launchesTotal }) => sum + launchesTotal,
+      0,
+    );
   }
 }
