@@ -1,7 +1,5 @@
 # SpaceXAPI
 
-<!---Esses são exemplos. Veja https://shields.io para outras pessoas ou para personalizar este conjunto de escudos. Você pode querer incluir dependências, status do projeto e informações de licença aqui--->
-
 ![GitHub repo size](https://img.shields.io/github/repo-size/elvesbd/space-backend?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/elvesbd/space-backend?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/elvesbd/space-backend?style=for-the-badge)
