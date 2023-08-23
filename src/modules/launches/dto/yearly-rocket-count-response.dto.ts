@@ -8,7 +8,7 @@ class RocketCounts {
   launchTotal: number;
 }
 
-export class YearlyRocketCounts {
+export class YearlyRocketCountsDto {
   @ApiProperty()
   year: number;
 
@@ -17,6 +17,6 @@ export class YearlyRocketCounts {
 }
 
 export class YearlyRocketCountResponseDto {
-  @ApiProperty({ type: [YearlyRocketCounts] })
-  yearlyRocketCounts: YearlyRocketCounts[];
+  @ApiProperty({ type: [YearlyRocketCountsDto] })
+  yearlyRocketCounts: YearlyRocketCountsDto[];
 }
