@@ -1,0 +1,22 @@
+version: '3'
+services:
+  space-api:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    volumes:
+      - .:/usr/src/space-api
+
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongodb:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=ebd123
+      - MONGO_INITDB_DATABASE=space
