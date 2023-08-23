@@ -15,7 +15,7 @@ export class GetLaunchPieChartDataService {
   async handle(): Promise<LaunchSummaryResponseDto> {
     const launches = await this.launchesRepository.getAll();
 
-    const rocketCounts: { [rocketId: string]: RocketLaunch } = launches.reduce(
+    const rocketCounts: Record<string, RocketLaunch> = launches.reduce(
       (acc, launch) => {
         const rocketId = launch.rocket;
         if (!acc[rocketId]) {
@@ -30,7 +30,7 @@ export class GetLaunchPieChartDataService {
 
         return acc;
       },
-      {},
+      {} as Record<string, RocketLaunch>,
     );
 
     const totalRocketLaunches = Object.values(rocketCounts).reduce(
