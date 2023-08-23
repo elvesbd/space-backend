@@ -5,10 +5,10 @@ export class RocketLaunch {
   rocket: string;
 
   @ApiProperty()
-  successCount: number;
+  name: string;
 
   @ApiProperty()
-  failureCount: number;
+  launchesTotal: number;
 }
 
 export class LaunchSummaryResponseDto {
@@ -16,8 +16,5 @@ export class LaunchSummaryResponseDto {
   rocketLaunchCounts: RocketLaunch[];
 
   @ApiProperty()
-  totalSuccessCount: number;
-
-  @ApiProperty()
-  totalFailureCount: number;
+  totalRocketLaunches: number;
 }

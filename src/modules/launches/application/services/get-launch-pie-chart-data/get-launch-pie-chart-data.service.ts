@@ -21,36 +21,26 @@ export class GetLaunchPieChartDataService {
         if (!acc[rocketId]) {
           acc[rocketId] = {
             rocket: rocketId,
-            successCount: 0,
-            failureCount: 0,
+            name: launch.name,
+            launchesTotal: 0,
           };
         }
 
-        if (launch.success) {
-          acc[rocketId].successCount++;
-        } else {
-          acc[rocketId].failureCount++;
-        }
+        acc[rocketId].launchesTotal++;
 
         return acc;
       },
       {},
     );
 
-    const totalSuccessCount = Object.values(rocketCounts).reduce(
-      (sum, counts) => sum + counts.successCount,
-      0,
-    );
-
-    const totalFailureCount = Object.values(rocketCounts).reduce(
-      (sum, counts) => sum + counts.failureCount,
+    const totalRocketLaunches = Object.values(rocketCounts).reduce(
+      (sum, counts) => sum + counts.launchesTotal,
       0,
     );
 
     return {
       rocketLaunchCounts: Object.values(rocketCounts),
-      totalSuccessCount,
-      totalFailureCount,
+      totalRocketLaunches,
     };
   }
 }
