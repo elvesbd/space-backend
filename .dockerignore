@@ -1,0 +1,27 @@
+# .dockerignore
+
+# Arquivos e diretórios do sistema
+node_modules
+npm-debug.log
+yarn-error.log
+
+# Ignorar a pasta .docker
+.docker/
+
+# Arquivos de configuração
+.env
+
+# Logs e arquivos temporários
+logs
+*.log
+
+# Arquivos de build
+dist
+
+# Arquivos específicos do IDE (Opcional - Remova se não aplicável)
+.vscode/
+.idea/
+
+# Outros arquivos
+*.swp
+.DS_Store
