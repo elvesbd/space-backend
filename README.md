@@ -55,13 +55,26 @@ Um cron job foi implementado para ser executado diariamente às 9:00 da manhã. 
 
 O projeto também possui uma documentação Swagger implementada. Você pode acessar a documentação em [http://localhost:3000/api/v1](http://localhost:3000/api/v1) após iniciar o aplicativo.
 
-## Começando
+## Rodando a Aplicação com Containers
 
-Para começar com o projeto SpaceX API, siga estas etapas:
+Agora, também oferecemos suporte para executar a aplicação SpaceX API usando Docker e Docker Compose. Isso facilita a configuração e execução da aplicação em qualquer ambiente. Siga os passos abaixo para iniciar a aplicação usando Docker:
 
-1. Clone este repositório para o seu ambiente local.
-2. Instale as dependências necessárias usando `npm install` ou `yarn install`.
-3. Execute o aplicativo usando `npm start` ou `yarn start`.
+### Pré-requisitos
+
+Certifique-se de ter o Docker e o Docker Compose instalados em seu sistema.
+
+### Passos
+
+Abra um terminal e navegue até o diretório raiz do projeto onde está localizado o arquivo `docker-compose.yml`.
+
+Execute o seguinte comando para construir as imagens Docker e iniciar os contêineres:
+
+```bash
+docker-compose up
+```
+
+Isso criará e inicializará os contêineres necessários com base nas configurações fornecidas no arquivo docker-compose.yml.
+Após a conclusão, a aplicação estará acessível através do host e porta (geralmente http://localhost:3000).
 
 Sinta-se à vontade para explorar as rotas implementadas, testar os endpoints da API e visualizar as estatísticas de lançamento.
 
