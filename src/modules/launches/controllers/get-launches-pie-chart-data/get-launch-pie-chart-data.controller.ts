@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { LaunchSummaryResponseDto } from '../../dto';
+import { RocketLaunchResponseDto } from '../../dto';
 import { GetLaunchPieChartDataService } from '../../application/services';
 import { LaunchesApiTag, LaunchesApiPath } from '../launches-api.constants';
 
@@ -12,9 +12,9 @@ export class GetLaunchPieChartDataController {
   ) {}
 
   @ApiOperation({ summary: 'get launch pie chart data' })
-  @ApiOkResponse({ type: LaunchSummaryResponseDto })
+  @ApiOkResponse({ type: RocketLaunchResponseDto })
   @Get('stats/pie')
-  async get(): Promise<LaunchSummaryResponseDto> {
+  async get(): Promise<RocketLaunchResponseDto> {
     return await this.getLaunchPieChartDataService.handle();
   }
 }

@@ -8,13 +8,19 @@ export class RocketLaunch {
   name: string;
 
   @ApiProperty()
-  launchesTotal: number;
+  successCount: number;
+
+  @ApiProperty()
+  failureCount: number;
 }
 
-export class LaunchSummaryResponseDto {
+export class RocketLaunchResponseDto {
   @ApiProperty({ type: [RocketLaunch] })
   rocketLaunchCounts: RocketLaunch[];
 
   @ApiProperty()
-  totalRocketLaunches: number;
+  successRocketLaunches: number;
+
+  @ApiProperty()
+  failureRocketLaunches: number;
 }

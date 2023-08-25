@@ -6,8 +6,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseRepositoryService } from './infra/adapters/mongo/repository';
 import { LaunchesModule } from '../launches';
 import { TaskService } from './infra/services/cron';
-import { HttpSpaceXAdapterService } from './infra/adapters/http';
 import { Launch, LaunchSchema } from './infra/adapters/mongo/schemas';
+import { HttpLaunchesAdapterService } from './infra/adapters/http';
+import { HttpRocketsAdapterService } from './infra/adapters/http/rockets/http-rockets-adapter.service';
 
 @Module({
   imports: [
@@ -24,6 +25,11 @@ import { Launch, LaunchSchema } from './infra/adapters/mongo/schemas';
     MongooseModule.forFeature([{ name: Launch.name, schema: LaunchSchema }]),
     ScheduleModule.forRoot(),
   ],
-  providers: [MongooseRepositoryService, TaskService, HttpSpaceXAdapterService],
+  providers: [
+    MongooseRepositoryService,
+    TaskService,
+    HttpLaunchesAdapterService,
+    HttpRocketsAdapterService,
+  ],
 })
 export class SharedModule {}

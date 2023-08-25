@@ -1,14 +1,14 @@
 import { HttpService as AxiosHttpService } from '@nestjs/axios';
 import { Injectable, Logger } from '@nestjs/common';
-import { HttpService } from '../interfaces';
 import { firstValueFrom } from 'rxjs';
-import { ExternaLaunchDto } from './dto';
+import { LaunchesHttpService } from '../../interfaces';
+import { ExternaLaunchDto } from '../dto';
 
 @Injectable()
-export class HttpSpaceXAdapterService implements HttpService {
+export class HttpLaunchesAdapterService implements LaunchesHttpService {
   constructor(private readonly axiosHttpService: AxiosHttpService) {}
 
-  private logger = new Logger(HttpSpaceXAdapterService.name);
+  private logger = new Logger(HttpLaunchesAdapterService.name);
 
   async getData(): Promise<ExternaLaunchDto[]> {
     try {

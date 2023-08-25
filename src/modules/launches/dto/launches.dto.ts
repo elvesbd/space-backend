@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { LaunchDto } from './launche.dto';
+import { LaunchDto } from './launch.dto';
 
-export class LaunchesResponseDto {
+export class LaunchesDto {
   @ApiProperty({ type: [LaunchDto] })
   results: LaunchDto[];
 

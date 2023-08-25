@@ -1,6 +1,6 @@
 import { ExternaLaunchDto } from '../http/dto';
 
-export interface HttpService {
+export interface LaunchesHttpService {
   getLatestData(): Promise<ExternaLaunchDto>;
   getData(): Promise<ExternaLaunchDto[]>;
 }

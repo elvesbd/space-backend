@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOperation, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { YearlyRocketCountResponseDto } from '../../dto';
+import { YearlyRocketCountsDto } from '../../dto';
 import { GetLaunchChartDataService } from '../../application/services';
 import { LaunchesApiTag, LaunchesApiPath } from '../launches-api.constants';
 
@@ -12,9 +12,9 @@ export class GetLaunchesChartDataController {
   ) {}
 
   @ApiOperation({ summary: 'get launches chart data' })
-  @ApiOkResponse({ type: YearlyRocketCountResponseDto })
+  @ApiOkResponse({ type: [YearlyRocketCountsDto] })
   @Get('stats/bar')
-  async get(): Promise<YearlyRocketCountResponseDto> {
+  async get(): Promise<YearlyRocketCountsDto[]> {
     return await this.getLaunchChartDataService.handle();
   }
 }

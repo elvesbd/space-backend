@@ -1,8 +1,8 @@
-import { LaunchesResponseDto } from '../../dto';
+import { LaunchesDto } from '../../dto';
 import { LaunchDataBuilder } from './launch-data.builder';
 
 export class LaunchResponseDataBuilder {
-  private launchResponseDto: LaunchesResponseDto = {
+  private launchResponseDto: LaunchesDto = {
     results: [
       LaunchDataBuilder.aLaunch().build(),
       LaunchDataBuilder.aLaunch().build(),
@@ -18,7 +18,7 @@ export class LaunchResponseDataBuilder {
     return new LaunchResponseDataBuilder();
   }
 
-  build(): LaunchesResponseDto {
+  build(): LaunchesDto {
     return this.launchResponseDto;
   }
 }

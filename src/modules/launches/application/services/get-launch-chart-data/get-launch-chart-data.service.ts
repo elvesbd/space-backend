@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { YearlyRocketCountResponseDto } from 'src/modules/launches/dto';
 import { LaunchEntity } from 'src/modules/launches/entity';
 import { LaunchesRepository } from 'src/modules/launches/repositories';
 import { RocketTotalCount, YearlyRocketCounts } from '../../interfaces';
+import { YearlyRocketCountsDto } from 'src/modules/launches/dto';
 
 @Injectable()
 export class GetLaunchChartDataService {
@@ -11,17 +11,14 @@ export class GetLaunchChartDataService {
     private readonly launchesRepository: LaunchesRepository,
   ) {}
 
-  async handle(): Promise<YearlyRocketCountResponseDto> {
+  async handle(): Promise<YearlyRocketCountsDto[]> {
     const launches = await this.launchesRepository.getAll();
-    const yearlyCountsMap = this.calculateYearlyCounts(launches);
-    return {
-      yearlyRocketCounts: [...yearlyCountsMap.values()],
-    };
+    return this.calculateYearlyCounts(launches);
   }
 
   private calculateYearlyCounts(
     launches: LaunchEntity[],
-  ): Map<number, YearlyRocketCounts> {
+  ): YearlyRocketCountsDto[] {
     const yearlyCountsMap: Map<number, YearlyRocketCounts> = new Map();
 
     for (const launch of launches) {
@@ -41,7 +38,7 @@ export class GetLaunchChartDataService {
       rocketCounts.launchTotal++;
     }
 
-    return yearlyCountsMap;
+    return Array.from(yearlyCountsMap.values());
   }
 
   private extractLaunchInfo(launch: LaunchEntity): {

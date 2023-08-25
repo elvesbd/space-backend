@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
-  LaunchSummaryResponseDto,
+  RocketLaunchResponseDto,
   RocketLaunch,
 } from 'src/modules/launches/dto';
 import { LaunchEntity } from 'src/modules/launches/entity';
@@ -13,15 +13,20 @@ export class GetLaunchPieChartDataService {
     private readonly launchesRepository: LaunchesRepository,
   ) {}
 
-  async handle(): Promise<LaunchSummaryResponseDto> {
+  async handle(): Promise<RocketLaunchResponseDto> {
     const launches = await this.launchesRepository.getAll();
 
     const rocketCounts = this.calculateRocketCounts(launches);
-    const totalRocketLaunches = this.calculateTotalRocketLaunches(rocketCounts);
+    const successRocketLaunches =
+      this.calculateSuccessRocketLaunches(rocketCounts);
+
+    const failureRocketLaunches =
+      this.calculateFailureRocketLaunches(rocketCounts);
 
     return {
       rocketLaunchCounts: Object.values(rocketCounts),
-      totalRocketLaunches,
+      successRocketLaunches,
+      failureRocketLaunches,
     };
   }
 
@@ -34,21 +39,35 @@ export class GetLaunchPieChartDataService {
         acc[rocket] = {
           rocket,
           name,
-          launchesTotal: 0,
+          successCount: 0,
+          failureCount: 0,
         };
       }
 
-      acc[rocket].launchesTotal++;
+      if (launch.success) {
+        acc[rocket].successCount++;
+      } else {
+        acc[rocket].failureCount++;
+      }
 
       return acc;
     }, {} as Record<string, RocketLaunch>);
   }
 
-  private calculateTotalRocketLaunches(
+  private calculateSuccessRocketLaunches(
     rocketCounts: Record<string, RocketLaunch>,
   ): number {
     return Object.values(rocketCounts).reduce(
-      (sum, { launchesTotal }) => sum + launchesTotal,
+      (sum, { successCount }) => sum + successCount,
+      0,
+    );
+  }
+
+  private calculateFailureRocketLaunches(
+    rocketCounts: Record<string, RocketLaunch>,
+  ): number {
+    return Object.values(rocketCounts).reduce(
+      (sum, { failureCount }) => sum + failureCount,
       0,
     );
   }
