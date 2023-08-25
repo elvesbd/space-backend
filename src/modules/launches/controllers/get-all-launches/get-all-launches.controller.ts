@@ -27,6 +27,7 @@ export class GetAllLaunchesController {
     @Query('limit', OptionalParseIntPipe) limit: number,
     @Query('page', OptionalParseIntPipe) page: number,
   ): Promise<GetAllLaunchesResponseDto> {
+    console.log('search', search);
     const filtersDto: FiltersDto = {
       search,
       limit,

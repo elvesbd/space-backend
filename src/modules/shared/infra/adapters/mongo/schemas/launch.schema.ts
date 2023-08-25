@@ -114,3 +114,4 @@ export class Launch extends Document implements LaunchEntity {
 }
 
 export const LaunchSchema = SchemaFactory.createForClass(Launch);
+LaunchSchema.index({ name: 'text', success: 'text' });

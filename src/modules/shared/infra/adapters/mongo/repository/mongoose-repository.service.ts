@@ -29,9 +29,7 @@ export class MongooseRepositoryService implements LaunchesRepository {
     const { search, limit, page = 1 } = filtersDto;
 
     const perPage = limit || 5;
-    const query = search
-      ? { rocket: { $regex: new RegExp(search, 'i') }, success: { $ne: null } }
-      : { success: { $ne: null } };
+    const query = this.buildQuery(search);
 
     const totalDocs = await this.countDocuments(query);
     const totalPages = Math.ceil(totalDocs / perPage);
@@ -76,6 +74,30 @@ export class MongooseRepositoryService implements LaunchesRepository {
       const document = LaunchMapper.toPersistence(launch);
       await this.launchModel.create(document);
       this.logger.log('Lançamento salvo com sucesso!');
+    }
+  }
+
+  private buildQuery(search: string): any {
+    if (
+      search &&
+      (search.toLowerCase() === 'sucesso' ||
+        search.toUpperCase() === 'SUCCESS0')
+    ) {
+      return { success: true };
+    } else if (
+      search &&
+      (search.toLowerCase() === 'falha' || search.toUpperCase() === 'FALHA')
+    ) {
+      return { success: false };
+    } else if (search) {
+      return {
+        $text: {
+          $search: search,
+        },
+        success: { $ne: null },
+      };
+    } else {
+      return { success: { $ne: null } };
     }
   }
 }
