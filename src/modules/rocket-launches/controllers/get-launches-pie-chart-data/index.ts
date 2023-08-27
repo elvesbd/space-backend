@@ -1,1 +1,1 @@
-export * from './get-launch-pie-chart-data.controller';
+export * from './get-launches-pie-chart-data.controller';

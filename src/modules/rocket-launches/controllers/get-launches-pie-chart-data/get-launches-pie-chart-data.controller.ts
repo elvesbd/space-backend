@@ -6,7 +6,7 @@ import { LaunchesApiTag, LaunchesApiPath } from '../launches-api.constants';
 
 @ApiTags(LaunchesApiTag)
 @Controller(LaunchesApiPath)
-export class GetLaunchPieChartDataController {
+export class GetLaunchesPieChartDataController {
   constructor(
     private readonly getLaunchPieChartDataService: GetLaunchPieChartDataService,
   ) {}

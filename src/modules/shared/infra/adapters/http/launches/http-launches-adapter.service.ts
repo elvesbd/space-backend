@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { firstValueFrom } from 'rxjs';
 import { LaunchesHttpService } from '../../interfaces';
 import { ExternaLaunchDto } from '../dto';
+import { baseUrl } from 'src/modules/shared/constants';
 
 @Injectable()
 export class HttpLaunchesAdapterService implements LaunchesHttpService {
@@ -13,9 +14,7 @@ export class HttpLaunchesAdapterService implements LaunchesHttpService {
   async getData(): Promise<ExternaLaunchDto[]> {
     try {
       const { data: launches } = await firstValueFrom(
-        this.axiosHttpService.get<ExternaLaunchDto[]>(
-          ' https://api.spacexdata.com/v4/launches',
-        ),
+        this.axiosHttpService.get<ExternaLaunchDto[]>(`${baseUrl}`),
       );
       return launches;
     } catch (err) {
@@ -26,9 +25,7 @@ export class HttpLaunchesAdapterService implements LaunchesHttpService {
   async getLatestData(): Promise<ExternaLaunchDto> {
     try {
       const { data: launch } = await firstValueFrom(
-        this.axiosHttpService.get<ExternaLaunchDto>(
-          ' https://api.spacexdata.com/v4/launches/latest',
-        ),
+        this.axiosHttpService.get<ExternaLaunchDto>(`${baseUrl}/latest`),
       );
       this.logger.log(`Foi encontrado o lançamento ${launch.id}`);
       return launch;

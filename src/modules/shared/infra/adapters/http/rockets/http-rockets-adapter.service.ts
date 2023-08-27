@@ -3,6 +3,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { firstValueFrom, from } from 'rxjs';
 import { RocketsHttpService } from '../../interfaces';
 import { ExternalRocketDto } from '../dto';
+import { baseUrl } from 'src/modules/shared/constants';
 
 @Injectable()
 export class HttpRocketsAdapterService implements RocketsHttpService {
@@ -14,7 +15,7 @@ export class HttpRocketsAdapterService implements RocketsHttpService {
     try {
       const rocketNamesPromises = rocketIds.map(async (id) => {
         const response$ = this.axiosHttpService.get<ExternalRocketDto>(
-          `https://api.spacexdata.com/v4/rockets/${id}`,
+          `${baseUrl}/rockets/${id}`,
         );
         const { data } = await firstValueFrom(response$);
         return data.name;
@@ -25,7 +26,10 @@ export class HttpRocketsAdapterService implements RocketsHttpService {
 
       return rocketNames;
     } catch (err) {
-      this.logger.error('An error occurred while fetching rockets', err.stack);
+      this.logger.error(
+        'An error occurred while fetching rockets',
+        err.message,
+      );
       throw err;
     }
   }

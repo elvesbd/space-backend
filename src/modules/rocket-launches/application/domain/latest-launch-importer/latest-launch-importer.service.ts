@@ -11,7 +11,7 @@ export class LatestLaunchImporter {
     private readonly launchesRepository: LaunchesRepository,
   ) {}
 
-  async execute(): Promise<void> {
+  async handle(): Promise<void> {
     const latestLaunch = await this.httpService.getLatestData();
     await this.launchesRepository.saveLatestLaunch(latestLaunch);
   }

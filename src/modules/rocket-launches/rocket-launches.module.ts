@@ -2,29 +2,34 @@ import { HttpModule } from '@nestjs/axios';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module, forwardRef } from '@nestjs/common';
 import { SharedModule } from '../shared';
-import { MongooseRepositoryService } from '../shared/infra/adapters/mongo/repository';
 import { Launch, LaunchSchema } from '../shared/infra/adapters/mongo/schemas';
-import { LatestLaunchImporter } from './application/domain';
-import { PopulateInitialDataService } from './application/domain/populate-initial-data';
-import { GetLaunchesChartDataController } from './controllers/get-launches-chart-data';
+import { MongooseRepositoryService } from '../shared/infra/adapters/mongo/repository';
+import {
+  LatestLaunchImporter,
+  PopulateInitialDataService,
+} from './application/domain';
+
 import {
   GetAllLaunchesService,
   GetLaunchChartDataService,
   GetLaunchPieChartDataService,
 } from './application/services';
 import {
-  GetAllLaunchesController,
-  GetLaunchPieChartDataController,
   HealthCheckController,
+  GetAllLaunchesController,
+  GetLaunchesChartDataController,
+  GetLaunchesPieChartDataController,
 } from './controllers';
-import { HttpLaunchesAdapterService } from '../shared/infra/adapters/http';
-import { HttpRocketsAdapterService } from '../shared/infra/adapters/http/rockets/http-rockets-adapter.service';
+import {
+  HttpRocketsAdapterService,
+  HttpLaunchesAdapterService,
+} from '../shared/infra/adapters/http';
 
 const launchControllers = [
   HealthCheckController,
   GetAllLaunchesController,
   GetLaunchesChartDataController,
-  GetLaunchPieChartDataController,
+  GetLaunchesPieChartDataController,
 ];
 const launchServices = [
   GetAllLaunchesService,

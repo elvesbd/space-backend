@@ -12,7 +12,7 @@ export class TaskService implements OnModuleInit {
   private config = {};
 
   constructor(
-    private readonly externalApiDataImporter: LatestLaunchImporter,
+    private readonly latestLaunchImporter: LatestLaunchImporter,
     private readonly populateInitialDataService: PopulateInitialDataService,
   ) {}
 
@@ -43,12 +43,12 @@ export class TaskService implements OnModuleInit {
 
   async handlePopulate(): Promise<void> {
     this.logger.log('Carregando dados iniciais para o banco!');
-    await this.populateInitialDataService.execute();
+    await this.populateInitialDataService.handle();
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_9AM)
   async handle(): Promise<void> {
     this.logger.log('Iniciando a busca por lançamentos recentes!');
-    await this.externalApiDataImporter.execute();
+    await this.latestLaunchImporter.handle();
   }
 }

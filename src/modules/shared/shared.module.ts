@@ -26,8 +26,8 @@ import { HttpRocketsAdapterService } from './infra/adapters/http/rockets/http-ro
     ScheduleModule.forRoot(),
   ],
   providers: [
-    MongooseRepositoryService,
     TaskService,
+    MongooseRepositoryService,
     HttpLaunchesAdapterService,
     HttpRocketsAdapterService,
   ],

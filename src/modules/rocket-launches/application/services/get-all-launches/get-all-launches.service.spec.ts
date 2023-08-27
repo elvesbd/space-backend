@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
-import { FiltersDto } from 'src/modules/launches/dto';
 import { GetAllLaunchesService } from './get-all-launches.service';
+import { FiltersDto } from 'src/modules/rocket-launches/dto';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { LaunchResponseDataBuilder } from '../../../__mocks__/data-builder';
 
 describe('GetAllLaunchesService', () => {

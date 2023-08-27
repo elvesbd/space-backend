@@ -12,7 +12,7 @@ import { RocketsHttpService } from 'src/modules/shared/infra/adapters/interfaces
 export class GetAllLaunchesService {
   constructor(
     @Inject('ROCKETS_HTTP_SERVICE')
-    private readonly httpService: RocketsHttpService,
+    private readonly rocketsHttpService: RocketsHttpService,
     @Inject('LAUNCHES_REPOSITORY')
     private readonly launchesRepository: LaunchesRepository,
   ) {}
@@ -41,7 +41,7 @@ export class GetAllLaunchesService {
     launches: LaunchDto[],
   ): Promise<MapLaunchesWithRocketNamesDto[]> {
     const rocketIds = launches.map((item) => item.rocket);
-    const rocketNames = await this.httpService.getRockets(rocketIds);
+    const rocketNames = await this.rocketsHttpService.getRockets(rocketIds);
 
     return launches.map((item, index) => ({
       youtubeLink: item.links.webcast,

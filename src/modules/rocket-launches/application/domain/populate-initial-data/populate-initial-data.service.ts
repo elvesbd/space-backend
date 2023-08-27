@@ -12,7 +12,7 @@ export class PopulateInitialDataService {
     private readonly launchesRepository: LaunchesRepository,
   ) {}
 
-  async execute(): Promise<void> {
+  async handle(): Promise<void> {
     const launches: ExternaLaunchDto[] = await this.httpService.getData();
     await this.launchesRepository.create(launches);
   }
