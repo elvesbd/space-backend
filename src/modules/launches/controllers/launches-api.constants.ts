@@ -1,2 +1,2 @@
-export const LaunchesApiPath = 'launches';
+export const LaunchesApiPath = 'rocket-launches';
 export const LaunchesApiTag = 'Launches';
