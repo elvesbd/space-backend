@@ -2,9 +2,9 @@ import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { readFileSync, writeFileSync } from 'fs';
 import {
-  ExternalApiDataImporter,
+  LatestLaunchImporter,
   PopulateInitialDataService,
-} from 'src/modules/launches/application/domain';
+} from 'src/modules/rocket-launches/application/domain';
 
 @Injectable()
 export class TaskService implements OnModuleInit {
@@ -12,7 +12,7 @@ export class TaskService implements OnModuleInit {
   private config = {};
 
   constructor(
-    private readonly externalApiDataImporter: ExternalApiDataImporter,
+    private readonly externalApiDataImporter: LatestLaunchImporter,
     private readonly populateInitialDataService: PopulateInitialDataService,
   ) {}
 

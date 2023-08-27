@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Launch } from '../schemas';
-import { FiltersDto, LaunchesDto } from 'src/modules/launches/dto';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
+import { FiltersDto, LaunchesDto } from 'src/modules/rocket-launches/dto';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { LaunchMapper } from '../mappers/launch.mapper';
 import { ExternaLaunchDto } from '../../http/dto';
 

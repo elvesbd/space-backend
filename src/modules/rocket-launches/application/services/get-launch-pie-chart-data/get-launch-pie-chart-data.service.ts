@@ -2,9 +2,9 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   RocketLaunchResponseDto,
   RocketLaunch,
-} from 'src/modules/launches/dto';
-import { LaunchEntity } from 'src/modules/launches/entity';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
+} from 'src/modules/rocket-launches/dto';
+import { LaunchEntity } from 'src/modules/rocket-launches/entity';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 
 @Injectable()
 export class GetLaunchPieChartDataService {

@@ -1,9 +1,9 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { LaunchesHttpService } from 'src/modules/shared/infra/adapters/interfaces';
 
 @Injectable()
-export class ExternalApiDataImporter {
+export class LatestLaunchImporter {
   constructor(
     @Inject('LAUNCHES_HTTP_SERVICE')
     private readonly httpService: LaunchesHttpService,
@@ -12,7 +12,7 @@ export class ExternalApiDataImporter {
   ) {}
 
   async execute(): Promise<void> {
-    const launch = await this.httpService.getLatestData();
-    await this.launchesRepository.saveLatestLaunch(launch);
+    const latestLaunch = await this.httpService.getLatestData();
+    await this.launchesRepository.saveLatestLaunch(latestLaunch);
   }
 }

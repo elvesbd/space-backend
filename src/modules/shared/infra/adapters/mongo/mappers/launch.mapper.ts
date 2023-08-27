@@ -1,5 +1,5 @@
 import { ExternaLaunchDto } from '../../http/dto';
-import { LaunchEntity } from 'src/modules/launches/entity';
+import { LaunchEntity } from 'src/modules/rocket-launches/entity';
 
 export class LaunchMapper {
   public static toPersistence(launch: ExternaLaunchDto): LaunchEntity {

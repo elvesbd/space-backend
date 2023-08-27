@@ -3,9 +3,9 @@ import {
   FiltersDto,
   LaunchDto,
   MapLaunchesWithRocketNamesDto,
-} from 'src/modules/launches/dto';
-import { GetAllLaunchesResponseDto } from 'src/modules/launches/dto/get-all-launches-response.dto copy';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
+} from 'src/modules/rocket-launches/dto';
+import { GetAllLaunchesResponseDto } from 'src/modules/rocket-launches/dto/get-all-launches-response.dto copy';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { RocketsHttpService } from 'src/modules/shared/infra/adapters/interfaces';
 
 @Injectable()

@@ -4,7 +4,7 @@ import { Module, forwardRef } from '@nestjs/common';
 import { SharedModule } from '../shared';
 import { MongooseRepositoryService } from '../shared/infra/adapters/mongo/repository';
 import { Launch, LaunchSchema } from '../shared/infra/adapters/mongo/schemas';
-import { ExternalApiDataImporter } from './application/domain';
+import { LatestLaunchImporter } from './application/domain';
 import { PopulateInitialDataService } from './application/domain/populate-initial-data';
 import { GetLaunchesChartDataController } from './controllers/get-launches-chart-data';
 import {
@@ -28,7 +28,7 @@ const launchControllers = [
 ];
 const launchServices = [
   GetAllLaunchesService,
-  ExternalApiDataImporter,
+  LatestLaunchImporter,
   PopulateInitialDataService,
   GetLaunchChartDataService,
   GetLaunchPieChartDataService,
@@ -56,6 +56,6 @@ const launchServices = [
       useClass: HttpRocketsAdapterService,
     },
   ],
-  exports: [ExternalApiDataImporter, PopulateInitialDataService],
+  exports: [LatestLaunchImporter, PopulateInitialDataService],
 })
-export class LaunchesModule {}
+export class RocketLaunchesModule {}

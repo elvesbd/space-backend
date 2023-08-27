@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { ExternaLaunchDto } from 'src/modules/shared/infra/adapters/http/dto';
 import { LaunchesHttpService } from 'src/modules/shared/infra/adapters/interfaces';
 

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { SharedModule } from './modules/shared';
-import { LaunchesModule } from './modules/launches';
+import { RocketLaunchesModule } from './modules/rocket-launches';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     SharedModule,
-    LaunchesModule,
+    RocketLaunchesModule,
   ],
 })
 export class AppModule {}

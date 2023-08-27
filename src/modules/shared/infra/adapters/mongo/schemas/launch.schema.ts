@@ -6,7 +6,7 @@ import {
   Failure,
   Core,
   LaunchEntity,
-} from 'src/modules/launches/entity';
+} from 'src/modules/rocket-launches/entity';
 
 @Schema()
 export class Launch extends Document implements LaunchEntity {

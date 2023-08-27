@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { LaunchEntity } from 'src/modules/launches/entity';
-import { LaunchesRepository } from 'src/modules/launches/repositories';
+import { LaunchEntity } from 'src/modules/rocket-launches/entity';
+import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { RocketTotalCount, YearlyRocketCounts } from '../../interfaces';
-import { YearlyRocketCountsDto } from 'src/modules/launches/dto';
+import { YearlyRocketCountsDto } from 'src/modules/rocket-launches/dto';
 
 @Injectable()
 export class GetLaunchChartDataService {
