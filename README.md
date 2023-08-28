@@ -99,6 +99,10 @@ Aproveite a exploração do cosmos com a SpaceX API! 🚀🌌
   </tr>
 </table>
 
+## Referência
+
+Este projeto é parte de um desafio proposto pela Coodesh. Para mais informações sobre o desafio, consulte [link para o desafio](https://coodesh.com).
+
 ## 📝 Licença
 
 Esse projeto está sob licença. Veja o arquivo [LICENÇA](LICENSE.md) para mais detalhes.
