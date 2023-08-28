@@ -16,7 +16,7 @@ describe('GetAllLaunchesService', () => {
     const LaunchesRepositoryProvider = {
       provide: 'LAUNCHES_REPOSITORY',
       useValue: {
-        getAllLaunches: jest.fn().mockResolvedValue(launches),
+        getAllLaunchesWithFilters: jest.fn().mockResolvedValue(launches),
       },
     };
 
@@ -40,20 +40,24 @@ describe('GetAllLaunchesService', () => {
       page: 1,
     };
 
-    it('should be called launchesRepository.getAllLaunches with correct values', async () => {
+    it('should be called launchesRepository.getAllLaunchesWithFilters with correct values', async () => {
       await sut.handle(filtersDto);
-      expect(launchesRepository.getAllLaunches).toHaveBeenCalledTimes(1);
-      expect(launchesRepository.getAllLaunches).toHaveBeenCalledWith(
+      expect(
+        launchesRepository.getAllLaunchesWithFilters,
+      ).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.getAllLaunchesWithFilters).toHaveBeenCalledWith(
         filtersDto,
       );
     });
 
-    it('should be called launchesRepository.getAllLaunches with correct values when not filters', async () => {
+    it('should be called launchesRepository.getAllLaunchesWithFilters with correct values when not filters', async () => {
       const notFilters = {};
 
       await sut.handle(notFilters);
-      expect(launchesRepository.getAllLaunches).toHaveBeenCalledTimes(1);
-      expect(launchesRepository.getAllLaunches).toHaveBeenCalledWith(
+      expect(
+        launchesRepository.getAllLaunchesWithFilters,
+      ).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.getAllLaunchesWithFilters).toHaveBeenCalledWith(
         notFilters,
       );
     });
