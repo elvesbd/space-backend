@@ -12,10 +12,10 @@ export class PopulateInitialDataService {
   constructor(
     @Inject('LAUNCHES_HTTP_SERVICE')
     private readonly httpService: LaunchesHttpService,
-    @Inject('LAUNCHES_REPOSITORY')
-    private readonly launchesRepository: LaunchesRepository,
     @Inject('ROCKETS_HTTP_SERVICE')
     private readonly rocketsHttpService: RocketsHttpService,
+    @Inject('LAUNCHES_REPOSITORY')
+    private readonly launchesRepository: LaunchesRepository,
   ) {}
 
   async handle(): Promise<void> {
