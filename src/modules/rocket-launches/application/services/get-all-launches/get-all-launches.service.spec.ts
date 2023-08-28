@@ -16,7 +16,7 @@ describe('GetAllLaunchesService', () => {
     const LaunchesRepositoryProvider = {
       provide: 'LAUNCHES_REPOSITORY',
       useValue: {
-        getAll: jest.fn().mockResolvedValue(launches),
+        getAllLaunches: jest.fn().mockResolvedValue(launches),
       },
     };
 
@@ -40,18 +40,22 @@ describe('GetAllLaunchesService', () => {
       page: 1,
     };
 
-    it('should be called launchesRepository.getAll with correct values', async () => {
+    it('should be called launchesRepository.getAllLaunches with correct values', async () => {
       await sut.handle(filtersDto);
-      expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
-      expect(launchesRepository.getAll).toHaveBeenCalledWith(filtersDto);
+      expect(launchesRepository.getAllLaunches).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.getAllLaunches).toHaveBeenCalledWith(
+        filtersDto,
+      );
     });
 
-    it('should be called launchesRepository.getAll with correct values when not filters', async () => {
+    it('should be called launchesRepository.getAllLaunches with correct values when not filters', async () => {
       const notFilters = {};
 
       await sut.handle(notFilters);
-      expect(launchesRepository.getAll).toHaveBeenCalledTimes(1);
-      expect(launchesRepository.getAll).toHaveBeenCalledWith(notFilters);
+      expect(launchesRepository.getAllLaunches).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.getAllLaunches).toHaveBeenCalledWith(
+        notFilters,
+      );
     });
 
     it('should be return all launches on success', async () => {

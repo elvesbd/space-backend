@@ -1,9 +1,9 @@
-export interface LaunchEntity {
+export class CreateRocketLaunchDto {
   flightNumber: number;
   missionName: string;
   dateLaunch: string;
-  rocketId: string;
   rocketName: string;
+  rocketId: string;
   success: boolean;
   youtubeLink: string;
 }

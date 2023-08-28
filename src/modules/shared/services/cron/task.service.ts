@@ -42,13 +42,21 @@ export class TaskService implements OnModuleInit {
   }
 
   async handlePopulate(): Promise<void> {
-    this.logger.log('Carregando dados iniciais para o banco!');
-    await this.populateInitialDataService.handle();
+    try {
+      this.logger.log('Carregando dados iniciais para o banco!');
+      await this.populateInitialDataService.handle();
+    } catch (error) {
+      this.logger.error('Error populating initial data:', error.message);
+    }
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_9AM)
   async handle(): Promise<void> {
-    this.logger.log('Iniciando a busca por lançamentos recentes!');
-    await this.latestLaunchImporter.handle();
+    try {
+      this.logger.log('Iniciando a busca por lançamentos recentes!');
+      await this.latestLaunchImporter.handle();
+    } catch (error) {
+      this.logger.error('Error importing latest launches:', error.message);
+    }
   }
 }

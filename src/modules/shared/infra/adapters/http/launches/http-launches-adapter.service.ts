@@ -14,7 +14,7 @@ export class HttpLaunchesAdapterService implements LaunchesHttpService {
   async getData(): Promise<ExternaLaunchDto[]> {
     try {
       const { data: launches } = await firstValueFrom(
-        this.axiosHttpService.get<ExternaLaunchDto[]>(`${baseUrl}`),
+        this.axiosHttpService.get<ExternaLaunchDto[]>(`${baseUrl}/launches`),
       );
       return launches;
     } catch (err) {

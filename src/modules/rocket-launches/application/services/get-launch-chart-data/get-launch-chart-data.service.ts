@@ -12,7 +12,7 @@ export class GetLaunchChartDataService {
   ) {}
 
   async handle(): Promise<YearlyRocketCountsDto[]> {
-    const launches = await this.launchesRepository.getAll();
+    const launches = await this.launchesRepository.getAllLaunches();
     return this.calculateYearlyCounts(launches);
   }
 
@@ -45,10 +45,10 @@ export class GetLaunchChartDataService {
     launchYear: number;
     rocketId: string;
   } {
-    const launchDate = new Date(launch.dateUtc);
+    const launchDate = new Date(launch.dateLaunch);
     return {
       launchYear: launchDate.getFullYear(),
-      rocketId: launch.rocket,
+      rocketId: launch.rocketId,
     };
   }
 
@@ -57,12 +57,12 @@ export class GetLaunchChartDataService {
     rocketId: string,
   ): RocketTotalCount {
     let rocketCounts = yearlyCounts.rocketCounts.find(
-      (item) => item.rocket === rocketId,
+      (item) => item.rocketId === rocketId,
     );
 
     if (!rocketCounts) {
       rocketCounts = {
-        rocket: rocketId,
+        rocketId,
         launchTotal: 0,
       };
       yearlyCounts.rocketCounts.push(rocketCounts);

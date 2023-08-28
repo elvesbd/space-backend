@@ -11,7 +11,7 @@ export class GetLaunchesPieChartDataController {
     private readonly getLaunchPieChartDataService: GetLaunchPieChartDataService,
   ) {}
 
-  @ApiOperation({ summary: 'get launch pie chart data' })
+  @ApiOperation({ summary: 'get launches pie chart data' })
   @ApiOkResponse({ type: RocketLaunchResponseDto })
   @Get('stats/pie')
   async get(): Promise<RocketLaunchResponseDto> {

@@ -1,12 +1,12 @@
 export class ExternaLaunchDto {
   id: string;
-  fairings: Fairings;
   links: Links;
+  fairings: Fairings;
   static_fire_date_utc: string;
   static_fire_date_unix: number;
   net: boolean;
   window: number;
-  rocket: string;
+  rocket: string; // pegar nome do foguete
   success: boolean;
   failures: Failure[];
   details: string;
@@ -17,9 +17,9 @@ export class ExternaLaunchDto {
   launchpad: string;
   flight_number: number;
   name: string;
-  date_utc: string;
-  date_unix: number;
   date_local: string;
+  date_unix: number;
+  date_utc: string;
   date_precision: string;
   upcoming: boolean;
   cores: Core[];
@@ -53,12 +53,12 @@ class FlickrLinks {
 }
 
 class Links {
+  webcast: string;
   patch: PatchLinks;
   reddit: RedditLinks;
   flickr: FlickrLinks;
-  presskit: string | null;
-  webcast: string;
   youtube_id: string;
+  presskit: string | null;
   article: string;
   wikipedia: string;
 }

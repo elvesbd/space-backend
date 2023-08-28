@@ -2,10 +2,13 @@ import { Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Launch } from '../schemas';
-import { FiltersDto, LaunchesDto } from 'src/modules/rocket-launches/dto';
+import {
+  FiltersDto,
+  LaunchesResponseDto,
+} from 'src/modules/rocket-launches/dto';
 import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { LaunchMapper } from '../mappers/launch.mapper';
-import { ExternaLaunchDto } from '../../http/dto';
+import { CreateRocketLaunchDto } from 'src/modules/rocket-launches/application/domain/dtos';
 
 @Injectable()
 export class MongooseRepositoryService implements LaunchesRepository {
@@ -13,25 +16,26 @@ export class MongooseRepositoryService implements LaunchesRepository {
     @InjectModel(Launch.name)
     private readonly launchModel: Model<Launch>,
   ) {}
+  createLaunch(launch: CreateRocketLaunchDto): Promise<void> {
+    throw new Error('Method not implemented.');
+  }
 
   private logger = new Logger(MongooseRepositoryService.name);
 
-  async getAll(): Promise<Launch[]> {
+  async getAllLaunches(): Promise<Launch[]> {
     const query = { success: { $ne: null } };
     return await this.launchModel.find(query).exec();
   }
 
-  async getOne(id: string): Promise<Launch | null> {
-    return await this.launchModel.findOne({ _id: id }).exec();
-  }
-
-  async getAllWithFilters(filtersDto: FiltersDto): Promise<LaunchesDto> {
+  async getAllLaunchesWithFilters(
+    filtersDto: FiltersDto,
+  ): Promise<LaunchesResponseDto> {
     const { search, limit, page = 1 } = filtersDto;
 
     const perPage = limit || 5;
     const query = this.buildQuery(search);
 
-    const totalDocs = await this.countDocuments(query);
+    const totalDocs = await this.countDocumentsByQuery(query);
     const totalPages = Math.ceil(totalDocs / perPage);
     const skip = (page - 1) * perPage;
 
@@ -42,11 +46,13 @@ export class MongooseRepositoryService implements LaunchesRepository {
       .limit(perPage)
       .exec();
 
+    const mappedLaunches = LaunchMapper.toDto(launches);
+
     const hasNext = page < totalPages;
     const hasPrev = page > 1;
 
     return {
-      results: launches,
+      results: mappedLaunches,
       totalDocs,
       page,
       totalPages,
@@ -55,26 +61,16 @@ export class MongooseRepositoryService implements LaunchesRepository {
     };
   }
 
-  async countDocuments(query: Record<string, any>): Promise<number> {
+  async countDocumentsByQuery(query: Record<string, any>): Promise<number> {
     return this.launchModel.countDocuments(query).exec();
   }
 
-  async create(launches: ExternaLaunchDto[]): Promise<void> {
-    for (const launch of launches) {
-      const { id, ...document } = LaunchMapper.toPersistence(launch);
-      await this.launchModel.create({ _id: id, ...document });
-    }
+  async create(launch: CreateRocketLaunchDto): Promise<void> {
+    await this.launchModel.create(launch);
   }
 
-  async saveLatestLaunch(launch: ExternaLaunchDto): Promise<void> {
-    const existingLaunch = await this.getOne(launch.id);
-    if (existingLaunch) {
-      this.logger.log(`O lançamento ${launch.id} já existe na base de dados!`);
-    } else {
-      const document = LaunchMapper.toPersistence(launch);
-      await this.launchModel.create(document);
-      this.logger.log('Lançamento salvo com sucesso!');
-    }
+  async saveLatestLaunch(launch: CreateRocketLaunchDto): Promise<void> {
+    await this.launchModel.create(launch);
   }
 
   private buildQuery(search: string): any {

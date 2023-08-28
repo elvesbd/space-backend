@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 class RocketCounts {
   @ApiProperty()
-  rocket: string;
+  rocketId: string;
 
   @ApiProperty()
   launchTotal: number;

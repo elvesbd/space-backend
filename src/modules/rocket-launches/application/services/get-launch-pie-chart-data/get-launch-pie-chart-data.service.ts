@@ -2,8 +2,8 @@ import { Inject, Injectable } from '@nestjs/common';
 import {
   RocketLaunchResponseDto,
   RocketLaunch,
+  LaunchDto,
 } from 'src/modules/rocket-launches/dto';
-import { LaunchEntity } from 'src/modules/rocket-launches/entity';
 import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 
 @Injectable()
@@ -14,44 +14,44 @@ export class GetLaunchPieChartDataService {
   ) {}
 
   async handle(): Promise<RocketLaunchResponseDto> {
-    const launches = await this.launchesRepository.getAll();
+    const launches = await this.launchesRepository.getAllLaunches();
 
     const rocketCounts = this.calculateRocketCounts(launches);
-    const successRocketLaunches =
-      this.calculateSuccessRocketLaunches(rocketCounts);
-
-    const failureRocketLaunches =
-      this.calculateFailureRocketLaunches(rocketCounts);
+    const successCount = this.calculateSuccessRocketLaunches(rocketCounts);
+    const failureCount = this.calculateFailureRocketLaunches(rocketCounts);
 
     return {
       rocketLaunchCounts: Object.values(rocketCounts),
-      successRocketLaunches,
-      failureRocketLaunches,
+      successCount,
+      failureCount,
     };
   }
 
   private calculateRocketCounts(
-    launches: LaunchEntity[],
+    launches: LaunchDto[],
   ): Record<string, RocketLaunch> {
-    return launches.reduce((acc, launch) => {
-      const { rocket, name } = launch;
-      if (!acc[rocket]) {
-        acc[rocket] = {
-          rocket,
-          name,
+    const rocketCounts: Record<string, RocketLaunch> = {};
+
+    for (const launch of launches) {
+      const { rocketName, rocketId } = launch;
+
+      if (!rocketCounts[rocketName]) {
+        rocketCounts[rocketName] = {
+          rocketId,
+          rocketName,
           successCount: 0,
           failureCount: 0,
         };
       }
 
       if (launch.success) {
-        acc[rocket].successCount++;
+        rocketCounts[rocketName].successCount++;
       } else {
-        acc[rocket].failureCount++;
+        rocketCounts[rocketName].failureCount++;
       }
+    }
 
-      return acc;
-    }, {} as Record<string, RocketLaunch>);
+    return rocketCounts;
   }
 
   private calculateSuccessRocketLaunches(

@@ -2,10 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class RocketLaunch {
   @ApiProperty()
-  rocket: string;
+  rocketId: string;
 
   @ApiProperty()
-  name: string;
+  rocketName: string;
 
   @ApiProperty()
   successCount: number;
@@ -19,8 +19,8 @@ export class RocketLaunchResponseDto {
   rocketLaunchCounts: RocketLaunch[];
 
   @ApiProperty()
-  successRocketLaunches: number;
+  successCount: number;
 
   @ApiProperty()
-  failureRocketLaunches: number;
+  failureCount: number;
 }

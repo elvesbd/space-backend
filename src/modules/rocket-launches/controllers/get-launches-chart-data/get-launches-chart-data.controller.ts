@@ -11,7 +11,7 @@ export class GetLaunchesChartDataController {
     private readonly getLaunchChartDataService: GetLaunchChartDataService,
   ) {}
 
-  @ApiOperation({ summary: 'get launches chart data' })
+  @ApiOperation({ summary: 'get launches bar chart data' })
   @ApiOkResponse({ type: [YearlyRocketCountsDto] })
   @Get('stats/bar')
   async get(): Promise<YearlyRocketCountsDto[]> {

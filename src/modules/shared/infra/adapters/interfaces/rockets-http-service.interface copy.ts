@@ -1,3 +1,4 @@
 export interface RocketsHttpService {
-  getRockets(ids: string[]): Promise<string[]>;
+  getRocketNames(ids: string[]): Promise<string[]>;
+  getRocketName(id: string): Promise<string>;
 }

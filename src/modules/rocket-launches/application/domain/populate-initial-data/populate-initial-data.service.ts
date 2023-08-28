@@ -1,7 +1,11 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { LaunchesRepository } from 'src/modules/rocket-launches/repositories';
 import { ExternaLaunchDto } from 'src/modules/shared/infra/adapters/http/dto';
-import { LaunchesHttpService } from 'src/modules/shared/infra/adapters/interfaces';
+import {
+  LaunchesHttpService,
+  RocketsHttpService,
+} from 'src/modules/shared/infra/adapters/interfaces';
+import { PopulateInitialDataMapper } from './mapper/populate-initial-data.mapper';
 
 @Injectable()
 export class PopulateInitialDataService {
@@ -10,10 +14,24 @@ export class PopulateInitialDataService {
     private readonly httpService: LaunchesHttpService,
     @Inject('LAUNCHES_REPOSITORY')
     private readonly launchesRepository: LaunchesRepository,
+    @Inject('ROCKETS_HTTP_SERVICE')
+    private readonly rocketsHttpService: RocketsHttpService,
   ) {}
 
   async handle(): Promise<void> {
     const launches: ExternaLaunchDto[] = await this.httpService.getData();
-    await this.launchesRepository.create(launches);
+    const rocketIds = launches.map((item) => item.rocket);
+    const rocketNames = await this.rocketsHttpService.getRocketNames(rocketIds);
+
+    const mappedLaunches = PopulateInitialDataMapper.toPersistence(
+      launches,
+      rocketNames,
+    );
+
+    const createPromises = mappedLaunches.map(async (launch) => {
+      await this.launchesRepository.createLaunch(launch);
+    });
+
+    await Promise.all(createPromises);
   }
 }

@@ -5,10 +5,10 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseRepositoryService } from './infra/adapters/mongo/repository';
 import { RocketLaunchesModule } from '../rocket-launches';
-import { TaskService } from './infra/services/cron';
 import { Launch, LaunchSchema } from './infra/adapters/mongo/schemas';
 import { HttpLaunchesAdapterService } from './infra/adapters/http';
 import { HttpRocketsAdapterService } from './infra/adapters/http/rockets/http-rockets-adapter.service';
+import { TaskService } from './services/cron';
 
 @Module({
   imports: [

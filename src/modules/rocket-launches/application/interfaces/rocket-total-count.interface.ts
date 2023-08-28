@@ -1,4 +1,4 @@
 export interface RocketTotalCount {
-  rocket: string;
+  rocketId: string;
   launchTotal: number;
 }
