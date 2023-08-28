@@ -79,5 +79,13 @@ describe('LatestLaunchImporter', () => {
       expect(launchesHttpService.getLatestData).toHaveBeenCalledTimes(1);
       expect(launchesHttpService.getLatestData).toHaveBeenCalledWith();
     });
+
+    it('should be called rocketsHttpService.getRocketName with correct value', async () => {
+      await sut.handle();
+      expect(rocketsHttpService.getRocketName).toHaveBeenCalledTimes(1);
+      expect(rocketsHttpService.getRocketName).toHaveBeenCalledWith(
+        latestLaunch.rocket,
+      );
+    });
   });
 });
