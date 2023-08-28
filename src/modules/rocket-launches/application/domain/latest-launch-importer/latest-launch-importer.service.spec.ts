@@ -87,5 +87,13 @@ describe('LatestLaunchImporter', () => {
         latestLaunch.rocket,
       );
     });
+
+    it('should be called launchesRepository.saveLatestLaunch with correct value', async () => {
+      await sut.handle();
+      expect(launchesRepository.saveLatestLaunch).toHaveBeenCalledTimes(1);
+      expect(launchesRepository.saveLatestLaunch).toHaveBeenCalledWith(
+        mappedLatestLaunch,
+      );
+    });
   });
 });
