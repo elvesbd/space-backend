@@ -19,7 +19,6 @@ export class LatestLaunchImporter {
 
   async handle(): Promise<void> {
     const latestLaunch = await this.launchesHttpService.getLatestData();
-    console.log(latestLaunch);
     const rocketName = await this.rocketsHttpService.getRocketName(
       latestLaunch.rocket,
     );
