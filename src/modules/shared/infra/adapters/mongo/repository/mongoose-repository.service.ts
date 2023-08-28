@@ -16,9 +16,6 @@ export class MongooseRepositoryService implements LaunchesRepository {
     @InjectModel(Launch.name)
     private readonly launchModel: Model<Launch>,
   ) {}
-  createLaunch(launch: CreateRocketLaunchDto): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
 
   private logger = new Logger(MongooseRepositoryService.name);
 
@@ -65,7 +62,7 @@ export class MongooseRepositoryService implements LaunchesRepository {
     return this.launchModel.countDocuments(query).exec();
   }
 
-  async create(launch: CreateRocketLaunchDto): Promise<void> {
+  async createLaunch(launch: CreateRocketLaunchDto): Promise<void> {
     await this.launchModel.create(launch);
   }
 
