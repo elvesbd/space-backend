@@ -53,28 +53,48 @@ Um cron job foi implementado para ser executado diariamente às 9:00 da manhã. 
 
 O projeto também possui uma documentação Swagger implementada. Você pode acessar a documentação em [http://localhost:3000/api/v1](http://localhost:3000/api/v1) após iniciar o aplicativo.
 
-## Rodando a Aplicação com Containers
+## Pré-requisitos
 
-Agora, também oferecemos suporte para executar a aplicação SpaceX API usando Docker e Docker Compose. Isso facilita a configuração e execução da aplicação em qualquer ambiente. Siga os passos abaixo para iniciar a aplicação usando Docker:
+- Node.js e npm instalados: [Node.js Downloads](https://nodejs.org/)
+- Docker instalado: [Docker](https://www.docker.com/)
 
-### Pré-requisitos
+## Passos para Execução
 
-Certifique-se de ter o Docker e o Docker Compose instalados em seu sistema.
+1. **Clonar o Projeto:**
 
-### Passos
-
-Abra um terminal e navegue até o diretório raiz do projeto onde está localizado o arquivo `docker-compose.yml`.
-
-Execute o seguinte comando para construir as imagens Docker e iniciar os contêineres:
+Abra um terminal e execute o seguinte comando para clonar o projeto:
 
 ```bash
-docker-compose up
+git clone https://github.com/elvesbd/space-backend.git
+cd space-backend
 ```
 
-Isso criará e inicializará os contêineres necessários com base nas configurações fornecidas no arquivo docker-compose.yml.
-Após a conclusão, a aplicação estará acessível através do host e porta (geralmente http://localhost:3000).
+2. **Instalar Dependências:**
 
-Sinta-se à vontade para explorar as rotas implementadas, testar os endpoints da API e visualizar as estatísticas de lançamento.
+Abra um terminal e execute o seguinte comando para clonar o projeto:
+
+```bash
+npm install
+cd space-backend
+```
+
+3. **Configurar o Banco de Dados com Docker:**
+
+Abra um terminal e execute o seguinte comando para clonar o projeto:
+
+```bash
+docker run --name space-mongo -e MONGO_INITDB_ROOT_USERNAME=root -e MONGO_INITDB_ROOT_PASSWORD=ebd123 -e MONGO_INITDB_DATABASE=space -p 27017:27017 -d mongo
+
+cd space-backend
+```
+
+4. **Iniciar o servidor:**
+
+Abra um terminal e execute o seguinte comando para clonar o projeto:
+
+```bash
+npm run start:dev
+```
 
 ## Conclusão
 
