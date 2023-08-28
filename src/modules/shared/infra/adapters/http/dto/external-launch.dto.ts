@@ -4,6 +4,7 @@ export class ExternaLaunchDto {
   fairings: Fairings;
   static_fire_date_utc: string;
   static_fire_date_unix: number;
+  tdb: boolean;
   net: boolean;
   window: number;
   rocket: string; // pegar nome do foguete
@@ -24,7 +25,6 @@ export class ExternaLaunchDto {
   upcoming: boolean;
   cores: Core[];
   auto_update: boolean;
-  tbd: boolean;
   launch_library_id: string;
 }
 

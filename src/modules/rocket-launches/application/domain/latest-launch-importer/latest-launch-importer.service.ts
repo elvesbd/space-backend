@@ -11,7 +11,7 @@ export class LatestLaunchImporter {
   constructor(
     @Inject('LAUNCHES_HTTP_SERVICE')
     private readonly launchesHttpService: LaunchesHttpService,
-    @Inject('LAUNCHES_HTTP_SERVICE')
+    @Inject('ROCKETS_HTTP_SERVICE')
     private readonly rocketsHttpService: RocketsHttpService,
     @Inject('LAUNCHES_REPOSITORY')
     private readonly launchesRepository: LaunchesRepository,
