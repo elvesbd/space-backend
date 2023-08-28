@@ -41,5 +41,10 @@ describe('GetLaunchChartDataService', () => {
       expect(launchesRepository.getAllLaunches).toHaveBeenCalledTimes(1);
       expect(launchesRepository.getAllLaunches).toHaveBeenCalledWith();
     });
+
+    it('should be return all yearly rocket counts on success', async () => {
+      const result = await sut.handle();
+      expect(result).toStrictEqual([yearlyRocketCounts]);
+    });
   });
 });
